@@ -10,9 +10,9 @@ export type YeuCauThemHoaDon = {
   ghiChu: string | null;
   anhUrl: string | null;
   cachChia: 'deu' | 'tuy_chinh';
-  // Set when the bill belongs to a group plan.
+  // Có giá trị khi hóa đơn thuộc một kế hoạch nhóm.
   khoanSapToiId: number | null;
-  // For 'deu' only nguoiDungId is used; the backend splits the amount itself.
+  // Chia 'deu' thì chỉ dùng nguoiDungId; backend tự chia số tiền.
   phanChia: { nguoiDungId: number; soTien: number }[];
 };
 

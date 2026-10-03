@@ -9,7 +9,7 @@ type LocTheoViProps = {
   khiChon: (viId: number | null) => void;
 };
 
-// Filter chips: "Tất cả" plus one chip per wallet. null = all wallets.
+// Nút lọc: "Tất cả" và mỗi ví một nút. null = tất cả ví.
 export default function LocTheoVi({ danhSachVi, viDangLoc, khiChon }: LocTheoViProps) {
   const luaChon = [{ id: null as number | null, ten: 'Tất cả' }, ...danhSachVi.map((vi) => ({ id: vi.id, ten: vi.ten }))];
 

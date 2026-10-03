@@ -11,7 +11,7 @@ import TextField from '../../shared/components/TextField';
 
 type IoniconName = keyof typeof Ionicons.glyphMap;
 
-// Icons the user can pick for their own category.
+// Các icon người dùng chọn được cho danh mục riêng.
 const BIEU_TUONG_CO_THE_CHON: IoniconName[] = [
   'pricetag-outline',
   'cafe-outline',
@@ -23,7 +23,7 @@ const BIEU_TUONG_CO_THE_CHON: IoniconName[] = [
   'barbell-outline',
 ];
 
-// Categories: the default ones everyone has, plus the user's own ones (which can be deleted if unused).
+// Danh mục: các danh mục mặc định ai cũng có, cùng danh mục riêng của người dùng (xóa được nếu chưa dùng).
 export default function DanhMuc() {
   const { token } = useAuth();
   const [danhSach, setDanhSach] = useState<DanhMucType[]>([]);

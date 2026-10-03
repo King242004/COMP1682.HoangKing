@@ -9,8 +9,8 @@ type DongNhacProps = {
   khiBam: () => void;
 };
 
-// One reminder line: yellow = coming soon (promise in ≤ 2 days), red = late or money running out.
-// Always words + icon, never color alone.
+// Một dòng nhắc: vàng = sắp tới (hẹn trong ≤ 2 ngày), đỏ = trễ hẹn hoặc sắp hết tiền.
+// Luôn có chữ + icon, không bao giờ chỉ dùng màu.
 export default function DongNhac({ nhacNho, khiBam }: DongNhacProps) {
   const laMauDo = nhacNho.mucDo === 'do';
   return (

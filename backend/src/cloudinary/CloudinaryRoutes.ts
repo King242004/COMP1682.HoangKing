@@ -8,8 +8,8 @@ const cloudinaryRoutes = Router();
 
 cloudinaryRoutes.use(requireAuth);
 
-// Gives the app a one-time permission to upload one photo straight to our Cloudinary folder.
-// The API secret never leaves the backend; the app only receives the signature made with it.
+// Cấp cho app quyền dùng một lần để tải một ảnh thẳng lên thư mục Cloudinary của mình.
+// API secret không bao giờ rời backend; app chỉ nhận chữ ký được tạo từ nó.
 cloudinaryRoutes.post('/signature', (_request, response) => {
   const { cloudName, apiKey, apiSecret } = getCloudinaryConfig();
   const timestamp = Math.floor(Date.now() / 1000);

@@ -15,8 +15,8 @@ import DongKhoanSapToi from './components/DongKhoanSapToi';
 
 type Props = NativeStackScreenProps<MainStackParams, 'ChiTietNgay'>;
 
-// One day, opened from the month calendar: what was spent or received that day,
-// and (for today or a future day) what is coming up that day.
+// Một ngày, mở từ lịch tháng: hôm đó đã chi hoặc thu những gì,
+// và (với hôm nay hoặc ngày tương lai) hôm đó có khoản nào sắp tới.
 export default function ChiTietNgay({ route, navigation }: Props) {
   const { ngay } = route.params;
   const { token } = useAuth();
@@ -56,8 +56,12 @@ export default function ChiTietNgay({ route, navigation }: Props) {
     }
   }
 
-  const tongChi = danhSachGiaoDich.filter((g) => g.loai === 'chi').reduce((tong, g) => tong + g.soTien, 0);
-  const tongThu = danhSachGiaoDich.filter((g) => g.loai === 'thu').reduce((tong, g) => tong + g.soTien, 0);
+  const tongChi = danhSachGiaoDich
+    .filter((giaoDich) => giaoDich.loai === 'chi')
+    .reduce((tong, giaoDich) => tong + giaoDich.soTien, 0);
+  const tongThu = danhSachGiaoDich
+    .filter((giaoDich) => giaoDich.loai === 'thu')
+    .reduce((tong, giaoDich) => tong + giaoDich.soTien, 0);
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>

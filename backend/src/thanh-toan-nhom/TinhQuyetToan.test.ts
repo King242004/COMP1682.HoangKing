@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { tinhQuyetToan } from './TinhQuyetToan';
 
-// Members used in the examples.
+// Các thành viên dùng trong ví dụ.
 const BAN = 1;
 const LAN = 2;
 const MINH = 3;

@@ -13,8 +13,8 @@ import TextField from '../../shared/components/TextField';
 import formatMoney from '../../shared/formatMoney';
 import readMoneyInput from '../../shared/moneyInput';
 
-// Budgets the user sets ("this month I only want to spend 3 million").
-// A total budget also caps "Mỗi ngày được tiêu" on Home; a category budget is only tracked here.
+// Ngân sách người dùng tự đặt ("tháng này chỉ muốn tiêu 3 triệu").
+// Ngân sách tổng còn giới hạn luôn "Mỗi ngày được tiêu" ở Trang chủ; ngân sách theo danh mục chỉ theo dõi ở đây.
 export default function NganSach() {
   const { token } = useAuth();
   const [danhSach, setDanhSach] = useState<NganSachType[]>([]);

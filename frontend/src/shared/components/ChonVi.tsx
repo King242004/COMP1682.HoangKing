@@ -10,7 +10,7 @@ type ChonViProps = {
   khiChon: (viId: number) => void;
 };
 
-// Wallet chips showing name and current balance. Tap one to pick it.
+// Các nút ví hiện tên và số dư hiện tại. Bấm một nút để chọn.
 export default function ChonVi({ danhSach, viDangChon, khiChon }: ChonViProps) {
   return (
     <View style={styles.wrap}>

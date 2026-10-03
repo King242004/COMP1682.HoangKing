@@ -11,8 +11,8 @@ type ThanhDanhMucProps = {
   tongChi: number;
 };
 
-// One horizontal bar: how much was spent in one category. The longest bar is the biggest category.
-// Name, amount and share are written as text, so the bar length is never the only way to read it.
+// Một thanh ngang: đã tiêu bao nhiêu cho một danh mục. Thanh dài nhất là danh mục lớn nhất.
+// Tên, số tiền và tỷ lệ đều ghi bằng chữ, nên độ dài thanh không phải cách đọc duy nhất.
 export default function ThanhDanhMuc({ muc, lonNhat, tongChi }: ThanhDanhMucProps) {
   const doDai = lonNhat > 0 ? (muc.soTien / lonNhat) * 100 : 0;
   const phanTram = tongChi > 0 ? Math.round((muc.soTien / tongChi) * 100) : 0;

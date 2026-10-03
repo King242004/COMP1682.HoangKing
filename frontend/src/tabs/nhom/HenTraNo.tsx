@@ -15,8 +15,8 @@ import formatMoney from '../../shared/formatMoney';
 
 type Props = NativeStackScreenProps<MainStackParams, 'HenTraNo'>;
 
-// "I will pay all my debt in this group by …". The forecast then counts the debt on that day
-// instead of today, and Home reminds from 2 days before (yellow) or after it passes (red).
+// "Tôi sẽ trả hết nợ nhóm này trước …". Dự báo sẽ tính khoản nợ vào ngày đó
+// thay vì hôm nay, và Trang chủ nhắc từ 2 ngày trước (vàng) hoặc khi đã quá hẹn (đỏ).
 export default function HenTraNo({ route, navigation }: Props) {
   const { nhomId } = route.params;
   const { token, nguoiDung } = useAuth();

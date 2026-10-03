@@ -6,7 +6,7 @@ type TextFieldProps = TextInputProps & {
   label: string;
 };
 
-// A text box with its label always visible above it (not only a placeholder).
+// Ô nhập chữ có nhãn luôn hiện phía trên (không chỉ có chữ gợi ý).
 export default function TextField({ label, style, ...inputProps }: TextFieldProps) {
   return (
     <View style={styles.wrapper}>

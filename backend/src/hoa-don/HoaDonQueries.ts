@@ -31,7 +31,7 @@ export type DuLieuHoaDon = {
   ghiChu: string | null;
   anhUrl: string | null;
   cachChia: 'deu' | 'tuy_chinh';
-  // Set when the bill belongs to a group plan (e.g. the bus ticket of the Đà Lạt trip).
+  // Có giá trị khi hóa đơn thuộc một kế hoạch nhóm (ví dụ vé xe của chuyến Đà Lạt).
   khoanSapToiId: number | null;
   nguoiTaoId: number;
 };
@@ -70,7 +70,7 @@ export async function createShares(client: PoolClient, hoaDonId: number, phanChi
   }
 }
 
-// Bills of a group, newest first, each with its list of shares.
+// Hóa đơn của một nhóm, mới nhất trước, mỗi hóa đơn kèm danh sách phần chia.
 export async function listBillsOfGroup(nhomId: number): Promise<HoaDon[]> {
   const result = await database.query<HoaDon>(
     `SELECT h.id,
@@ -108,7 +108,7 @@ export async function billBelongsToGroup(hoaDonId: number, nhomId: number): Prom
   return (result.rowCount ?? 0) > 0;
 }
 
-// Shares are deleted together with the bill (ON DELETE CASCADE).
+// Phần chia bị xóa cùng hóa đơn (ON DELETE CASCADE).
 export async function deleteBill(hoaDonId: number): Promise<void> {
   await database.query('DELETE FROM hoa_don WHERE id = $1', [hoaDonId]);
 }

@@ -12,11 +12,11 @@ import { duBaoSoDu } from './DuBaoSoDu';
 import { noiNhomVaoCaNhan, type NhacNho } from './NoiNhomVaoCaNhan';
 import { tinhHanMucNgay, type HanMucNgay, type KhoanTuongLai } from './TinhHanMucNgay';
 
-// How many days the balance forecast looks ahead, and how many past days give the spending speed.
+// Dự báo số dư nhìn trước bao nhiêu ngày, và lấy bao nhiêu ngày đã qua để tính tốc độ tiêu.
 const SO_NGAY_DU_BAO = 62;
 const SO_NGAY_TINH_TOC_DO = 7;
 
-// One future item shown on the calendar and in "Sắp tới".
+// Một khoản tương lai hiện trên lịch và trong mục "Sắp tới".
 export type KhoanTrenLich = {
   ngay: string;
   ten: string;
@@ -39,8 +39,8 @@ export type DuBao = {
   khoanTrenLich: KhoanTrenLich[];
 };
 
-// ⭐ Everything the Home screen needs about the future, in one call.
-// lichTu / lichDen = the calendar range the app is showing (only future days get items).
+// ⭐ Mọi thứ Trang chủ cần biết về tương lai, trong một lần gọi.
+// lichTu / lichDen = khoảng ngày lịch đang hiện (chỉ ngày tương lai mới có khoản).
 export async function getForecast(nguoiDungId: number, lichTu: string, lichDen: string): Promise<DuBao> {
   const homNay = todayInVietnam();
   const cuoiCuaSo = [addDays(homNay, SO_NGAY_DU_BAO), lichDen].sort()[1];
@@ -60,7 +60,7 @@ export async function getForecast(nguoiDungId: number, lichTu: string, lichDen: 
   const soDuVi = danhSachVi.reduce((tong, vi) => tong + vi.soDuHienTai, 0);
   const tocDoTieu = Math.floor(chiTieuGanDay / SO_NGAY_TINH_TOC_DO);
 
-  // 1. Personal upcoming items → dated items (unpaid occurrences from today on).
+  // Bước 1. Khoản sắp tới cá nhân → các khoản có ngày (những kỳ chưa trả, từ hôm nay trở đi).
   const khoanTrenLich: KhoanTrenLich[] = [];
   for (const khoan of khoanCaNhan) {
     for (const ngay of unpaidOccurrences(khoan, homNay, cuoiCuaSo, daTra)) {
@@ -68,7 +68,7 @@ export async function getForecast(nguoiDungId: number, lichTu: string, lichDen: 
     }
   }
 
-  // 2. ⭐ Groups → my debts (on the promised day), money owed to me, joined plans.
+  // Bước 2. ⭐ Nhóm → nợ của tôi (vào ngày đã hẹn), tiền người khác nợ tôi, kế hoạch đã tham gia.
   const nhomCuaToi = await Promise.all(
     danhSachNhom.map(async (nhom) => {
       const { soDu } = await tinhSoDuCuaNhom(nhom.id);
@@ -85,7 +85,7 @@ export async function getForecast(nguoiDungId: number, lichTu: string, lichDen: 
     khoanTrenLich.push({ ngay: khoan.ngay, ten: khoan.ten, soTien: khoan.soTien, loai: 'chi', nguon: khoan.loai, khoanSapToiId: null });
   }
 
-  // 3. The daily limit and the day-by-day forecast use the same list of future items.
+  // Bước 3. Hạn mức mỗi ngày và dự báo từng ngày dùng chung một danh sách khoản tương lai.
   const cacKhoan: KhoanTuongLai[] = khoanTrenLich.map((khoan) => ({ ngay: khoan.ngay, soTien: khoan.soTien, loai: khoan.loai }));
   const hanMuc = tinhHanMucNgay(soDuVi, cacKhoan, tuNhom.sapDuocTra, muonTieuMoiNgay, homNay);
   const duBao = duBaoSoDu(soDuVi, tocDoTieu, cacKhoan, homNay, SO_NGAY_DU_BAO);
@@ -112,6 +112,6 @@ export async function getForecast(nguoiDungId: number, lichTu: string, lichDen: 
     nhacNho,
     khoanTrenLich: khoanTrenLich
       .filter((khoan) => khoan.ngay >= lichTu && khoan.ngay <= lichDen)
-      .sort((a, b) => (a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : 0)),
+      .sort((khoanTruoc, khoanSau) => khoanTruoc.ngay.localeCompare(khoanSau.ngay)),
   };
 }

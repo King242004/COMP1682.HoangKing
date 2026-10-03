@@ -12,7 +12,7 @@ import {
 } from '../validation/readInput';
 import { addBill, removeBill, type YeuCauThemHoaDon } from './HoaDonService';
 
-// Mounted at /nhom/:nhomId/hoa-don, so it needs mergeParams to see :nhomId.
+// Gắn ở /nhom/:nhomId/hoa-don, nên cần mergeParams để đọc được :nhomId.
 const hoaDonRoutes = Router({ mergeParams: true });
 
 hoaDonRoutes.use(requireAuth);

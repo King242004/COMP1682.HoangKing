@@ -10,8 +10,8 @@ type UploadPermission = {
   signature: string;
 };
 
-// Opens the camera or the photo library. Returns the local photo, or null if the user cancels.
-// quality 0.6 keeps photos small enough to upload quickly on 4G.
+// Mở camera hoặc thư viện ảnh. Trả về ảnh trên máy, hoặc null nếu người dùng hủy.
+// quality 0.6 giữ ảnh đủ nhỏ để tải lên nhanh bằng 4G.
 export async function pickImage(source: 'camera' | 'library'): Promise<string | null> {
   const permission =
     source === 'camera'
@@ -29,13 +29,13 @@ export async function pickImage(source: 'camera' | 'library'): Promise<string | 
   return result.canceled ? null : result.assets[0].uri;
 }
 
-// Uploads a local photo straight to Cloudinary and returns its public https link.
-// The backend first gives a one-time signature, so the Cloudinary secret never sits in the app.
+// Tải ảnh trên máy thẳng lên Cloudinary và trả về link https công khai.
+// Backend cấp chữ ký dùng một lần trước, nên secret của Cloudinary không bao giờ nằm trong app.
 export async function uploadImage(token: string, localUri: string): Promise<string> {
   const permission = await callApi<UploadPermission>('/cloudinary/signature', { method: 'POST', token });
 
   const form = new FormData();
-  // React Native's FormData accepts a { uri, name, type } object for files.
+  // FormData của React Native nhận object { uri, name, type } cho file.
   form.append('file', { uri: localUri, name: 'anh.jpg', type: 'image/jpeg' } as unknown as Blob);
   form.append('api_key', permission.apiKey);
   form.append('timestamp', String(permission.timestamp));
@@ -59,7 +59,7 @@ export async function uploadImage(token: string, localUri: string): Promise<stri
   return data.secure_url as string;
 }
 
-// A small square version of a Cloudinary photo, for lists and calendar cells (less data to download).
+// Bản vuông nhỏ của ảnh Cloudinary, dùng cho danh sách và ô lịch (tải ít dữ liệu hơn).
 export function thumbnailUrl(url: string, size: number): string {
   return url.replace('/image/upload/', `/image/upload/c_fill,w_${size},h_${size}/`);
 }

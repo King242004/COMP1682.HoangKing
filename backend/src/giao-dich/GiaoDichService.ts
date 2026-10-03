@@ -13,8 +13,8 @@ import {
   type GiaoDich,
 } from './GiaoDichQueries';
 
-// The wallet must be the caller's, the category must be visible to them and match thu/chi,
-// and a photo link must come from our own Cloudinary folder (not any random URL).
+// Ví phải là của người gọi, danh mục phải được người đó thấy và đúng loại thu/chi,
+// và link ảnh phải nằm trong thư mục Cloudinary của mình (không nhận link bất kỳ).
 async function checkWalletAndCategory(nguoiDungId: number, duLieu: DuLieuGiaoDich): Promise<void> {
   await getWalletOfUser(duLieu.viId, nguoiDungId);
   await getCategoryForUse(duLieu.danhMucId, nguoiDungId, duLieu.loai);

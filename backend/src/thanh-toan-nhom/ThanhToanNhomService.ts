@@ -9,8 +9,8 @@ import {
   type ThanhToan,
 } from './ThanhToanNhomQueries';
 
-// Step 1 of paying a debt: the person paying presses "Đã trả" (optionally picking the wallet it came from).
-// It only counts after the receiver confirms (step 2).
+// Bước 1 của trả nợ: người trả bấm "Đã trả" (có thể chọn ví đã lấy tiền ra).
+// Khoản trả chỉ được tính sau khi người nhận xác nhận (bước 2).
 export async function sendPayment(
   nhomId: number,
   nguoiTraId: number,
@@ -40,7 +40,7 @@ async function getPendingPayment(nhomId: number, thanhToanId: number): Promise<T
   return thanhToan;
 }
 
-// Step 2: only the receiver can confirm "Đã nhận" (optionally picking the wallet it went into).
+// Bước 2: chỉ người nhận mới xác nhận "Đã nhận" được (có thể chọn ví nhận tiền vào).
 export async function receivePayment(
   nhomId: number,
   thanhToanId: number,
@@ -58,7 +58,7 @@ export async function receivePayment(
   await confirmPayment(thanhToanId, viNhanId);
 }
 
-// The payer can take back a "Đã trả" that the receiver has not confirmed yet.
+// Người trả được rút lại một lần "Đã trả" mà người nhận chưa xác nhận.
 export async function cancelPayment(nhomId: number, thanhToanId: number, nguoiDungId: number): Promise<void> {
   await kiemTraThanhVien(nhomId, nguoiDungId);
   const thanhToan = await getPendingPayment(nhomId, thanhToanId);

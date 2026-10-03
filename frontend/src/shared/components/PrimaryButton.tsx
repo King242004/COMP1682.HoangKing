@@ -8,7 +8,7 @@ type PrimaryButtonProps = {
   loading?: boolean;
 };
 
-// The main navy button. While loading it shows a spinner and ignores extra taps.
+// Nút chính màu navy. Đang tải thì hiện vòng xoay và bỏ qua các lần bấm thêm.
 export default function PrimaryButton({ title, onPress, loading = false }: PrimaryButtonProps) {
   return (
     <Pressable

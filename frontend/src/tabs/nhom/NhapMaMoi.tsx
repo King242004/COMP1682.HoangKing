@@ -11,7 +11,7 @@ import TextField from '../../shared/components/TextField';
 
 type Props = NativeStackScreenProps<MainStackParams, 'NhapMaMoi'>;
 
-// Join a group with the 6-character invite code a friend sent.
+// Vào nhóm bằng mã mời 6 ký tự mà bạn bè gửi.
 export default function NhapMaMoi({ navigation }: Props) {
   const { token } = useAuth();
   const [maMoi, setMaMoi] = useState('');

@@ -1,6 +1,6 @@
 import { callApi } from '../shared/apiClient';
 
-// "Đã trả": the logged-in user pays someone in the group.
+// "Đã trả": người đang đăng nhập trả tiền cho một người trong nhóm.
 export async function traTien(
   token: string,
   nhomId: number,
@@ -15,7 +15,7 @@ export async function traTien(
   });
 }
 
-// "Đã nhận": the receiver confirms a payment.
+// "Đã nhận": người nhận xác nhận một lần trả.
 export async function xacNhanDaNhan(token: string, nhomId: number, thanhToanId: number, viNhanId: number | null): Promise<void> {
   await callApi<void>(`/nhom/${nhomId}/thanh-toan/${thanhToanId}/xac-nhan`, {
     method: 'POST',
@@ -24,7 +24,7 @@ export async function xacNhanDaNhan(token: string, nhomId: number, thanhToanId: 
   });
 }
 
-// The payer takes back a "Đã trả" that is not confirmed yet.
+// Người trả rút lại một lần "Đã trả" chưa được xác nhận.
 export async function huyThanhToan(token: string, nhomId: number, thanhToanId: number): Promise<void> {
   await callApi<void>(`/nhom/${nhomId}/thanh-toan/${thanhToanId}`, { method: 'DELETE', token });
 }

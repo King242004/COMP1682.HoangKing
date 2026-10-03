@@ -24,7 +24,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Checks that the backend is running and can reach the database.
+// Kiểm tra backend đang chạy và kết nối được database.
 app.get('/health', async (_request, response) => {
   try {
     await database.query('SELECT 1');
@@ -49,7 +49,7 @@ app.use('/khoan-sap-toi', khoanSapToiRoutes);
 app.use('/ngan-sach', nganSachRoutes);
 app.use('/du-bao', duBaoRoutes);
 
-// Express 5 sends errors thrown in any route here, including errors from async routes.
+// Express 5 chuyển mọi lỗi ném ra trong route về đây, kể cả lỗi trong route async.
 app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
   if (error instanceof HttpError) {
     response.status(error.status).json({ thongBao: error.message });

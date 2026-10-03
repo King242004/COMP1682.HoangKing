@@ -6,11 +6,11 @@ export type QuyTacLapLai = {
   ngayKetThuc: string | null;
 };
 
-// Turns a rule like "the 5th of every month from 2026-09-05" into the real dates inside [tuNgay, denNgay].
-// - 'khong': only ngayBatDau.
-// - 'tuan':  every 7 days from ngayBatDau.
-// - 'thang': the same day of every month; in a shorter month it moves to the last day
-//            (rent on the 31st falls on Feb 28), unlike the iCalendar rule which would skip that month.
+// Biến quy tắc như "ngày 5 hằng tháng từ 2026-09-05" thành các ngày thật nằm trong [tuNgay, denNgay].
+// - 'khong': chỉ có ngayBatDau.
+// - 'tuan':  cứ 7 ngày một lần kể từ ngayBatDau.
+// - 'thang': cùng ngày đó mỗi tháng; tháng nào ngắn hơn thì lùi về ngày cuối tháng
+//            (tiền nhà ngày 31 rơi vào 28/2), khác với quy tắc iCalendar là bỏ qua tháng đó.
 export function trienKhaiKhoanLapLai(quyTac: QuyTacLapLai, tuNgay: string, denNgay: string): string[] {
   const batDau = quyTac.ngayBatDau > tuNgay ? quyTac.ngayBatDau : tuNgay;
   const ketThuc = quyTac.ngayKetThuc && quyTac.ngayKetThuc < denNgay ? quyTac.ngayKetThuc : denNgay;
@@ -36,7 +36,7 @@ export function trienKhaiKhoanLapLai(quyTac: QuyTacLapLai, tuNgay: string, denNg
     return cacNgay;
   }
 
-  // Monthly: walk month by month, always aiming at the original day of the month.
+  // Hằng tháng: đi từng tháng một, luôn nhắm vào ngày gốc trong tháng.
   const [namDau, thangDau, ngayTrongThang] = quyTac.ngayBatDau.split('-').map(Number);
   let nam = namDau;
   let thang = thangDau;

@@ -1,14 +1,14 @@
 import { xepLoaiHenTra } from '../hen-tra-no/XepLoaiHenTra';
 
-// ⭐ The new feature of Evenwise (tai-lieu/Evenwise.md, section 4.3):
-// turns what happens in groups into items the personal forecast understands.
+// ⭐ Chức năng mới của Evenwise (tai-lieu/Evenwise.md, mục 4.3):
+// biến những gì xảy ra trong nhóm thành các khoản mà dự báo cá nhân hiểu được.
 
 export type NhomCuaToi = {
   nhomId: number;
   tenNhom: string;
-  // My balance in the group: negative = I owe, positive = the group owes me.
+  // Số dư của tôi trong nhóm: âm = tôi đang nợ, dương = nhóm nợ tôi.
   soDuCuaToi: number;
-  // The day I promised to pay my debt in this group, if any.
+  // Ngày tôi hẹn trả hết nợ nhóm này, nếu có.
   ngayHen: string | null;
 };
 
@@ -17,9 +17,9 @@ export type KeHoachDaThamGia = {
   ten: string;
   tenNhom: string;
   ngay: string;
-  // Expected amount per person.
+  // Số tiền dự kiến của mỗi người.
   soTienMoiNguoi: number;
-  // My share of the real bills already linked to this plan (e.g. the bus ticket bought early).
+  // Phần của tôi trong các hóa đơn thật đã gắn vào kế hoạch này (ví dụ vé xe mua trước).
   daChiPhanCuaToi: number;
 };
 
@@ -37,9 +37,9 @@ export type NhacNho = {
 };
 
 export type KetQuaNoiNhom = {
-  // Money I must pay, each on the day it will leave my pocket.
+  // Tiền tôi phải trả, mỗi khoản vào đúng ngày tiền rời khỏi túi tôi.
   khoanPhaiTra: KhoanTuNhom[];
-  // Money others owe me. Not certain, so it is never counted in the daily limit.
+  // Tiền người khác nợ tôi. Chưa chắc được trả nên không bao giờ cộng vào hạn mức mỗi ngày.
   sapDuocTra: number;
   tongDangNo: number;
   nhacNho: NhacNho[];
@@ -67,8 +67,8 @@ export function noiNhomVaoCaNhan(
     const soNo = -nhom.soDuCuaToi;
     tongDangNo += soNo;
 
-    // No promise, or the promised day has passed: the debt counts as due today.
-    // A promise in the future: the debt counts on that day.
+    // Chưa hẹn, hoặc đã quá ngày hẹn: khoản nợ tính là phải trả ngay hôm nay.
+    // Có hẹn trong tương lai: khoản nợ tính vào đúng ngày đó.
     const henConHieuLuc = nhom.ngayHen !== null && nhom.ngayHen >= homNay;
     khoanPhaiTra.push({
       ngay: henConHieuLuc ? (nhom.ngayHen as string) : homNay,
@@ -93,7 +93,7 @@ export function noiNhomVaoCaNhan(
     }
   }
 
-  // A plan counts only for what is not spent yet, so money already paid is not subtracted twice.
+  // Kế hoạch chỉ tính phần chưa chi, để tiền đã trả không bị trừ hai lần.
   for (const keHoach of danhSachKeHoach) {
     const conPhaiChi = Math.max(0, keHoach.soTienMoiNguoi - keHoach.daChiPhanCuaToi);
     if (conPhaiChi > 0 && keHoach.ngay >= homNay) {

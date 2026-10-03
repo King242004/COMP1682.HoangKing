@@ -1,4 +1,4 @@
-// Backend address comes from the .env file (EXPO_PUBLIC_API_URL), never written in the code.
+// Địa chỉ backend lấy từ file .env (EXPO_PUBLIC_API_URL), không bao giờ viết cứng trong code.
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 type ApiOptions = {
@@ -7,8 +7,8 @@ type ApiOptions = {
   token?: string | null;
 };
 
-// An error from the backend. status is the HTTP status, or 0 when the backend could not be reached.
-// message is already in Vietnamese and can be shown to the user.
+// Lỗi từ backend. status là mã HTTP, hoặc 0 khi không gọi được tới backend.
+// message đã là tiếng Việt, hiện thẳng cho người dùng được.
 export class ApiError extends Error {
   status: number;
 
@@ -18,7 +18,7 @@ export class ApiError extends Error {
   }
 }
 
-// Sends one request to the backend and returns the JSON answer.
+// Gửi một request tới backend và trả về kết quả JSON.
 export async function callApi<Result>(path: string, options: ApiOptions = {}): Promise<Result> {
   if (!API_URL) {
     throw new ApiError(0, 'Chưa cấu hình EXPO_PUBLIC_API_URL trong file .env');
@@ -40,7 +40,7 @@ export async function callApi<Result>(path: string, options: ApiOptions = {}): P
     throw new ApiError(0, 'Không kết nối được máy chủ, kiểm tra mạng rồi thử lại');
   }
 
-  // 204 means "done, nothing to send back" (for example after deleting).
+  // 204 nghĩa là "xong, không có gì gửi lại" (ví dụ sau khi xóa).
   if (response.status === 204) {
     return undefined as Result;
   }

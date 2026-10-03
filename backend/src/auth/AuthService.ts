@@ -20,7 +20,7 @@ export async function register(email: string, matKhau: string, tenHienThi: strin
     throw new HttpError(409, 'Email này đã được đăng ký');
   }
 
-  // argon2.hash uses Argon2id with the library's default parameters.
+  // argon2.hash dùng Argon2id với tham số mặc định của thư viện.
   const matKhauBam = await argon2.hash(matKhau);
   const nguoiDung = await createUser(email, matKhauBam, tenHienThi);
 
@@ -30,7 +30,7 @@ export async function register(email: string, matKhau: string, tenHienThi: strin
 export async function login(email: string, matKhau: string): Promise<KetQuaDangNhap> {
   const user = await findUserByEmail(email);
 
-  // Same message for "no such email" and "wrong password", so nobody can probe which emails exist.
+  // Cùng một thông báo cho "không có email này" và "sai mật khẩu", để không ai dò được email nào đã đăng ký.
   if (!user || !(await argon2.verify(user.matKhauBam, matKhau))) {
     throw new HttpError(401, 'Email hoặc mật khẩu không đúng');
   }

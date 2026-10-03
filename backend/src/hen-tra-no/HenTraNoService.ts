@@ -3,8 +3,8 @@ import { HttpError } from '../errors/HttpError';
 import kiemTraThanhVien from '../nhom/KiemTraThanhVien';
 import { deletePromise, savePromise } from './HenTraNoQueries';
 
-// "I will pay all my debt in this group by ngayHen". Any member may set their own promise;
-// it only matters while they owe money (the forecast ignores it otherwise).
+// "Tôi sẽ trả hết nợ nhóm này trước ngayHen". Thành viên nào cũng tự đặt hẹn của mình được;
+// hẹn chỉ có tác dụng khi người đó đang nợ (nếu không thì dự báo bỏ qua).
 export async function promiseToPay(nhomId: number, nguoiDungId: number, ngayHen: string): Promise<void> {
   await kiemTraThanhVien(nhomId, nguoiDungId);
   if (ngayHen < todayInVietnam()) {

@@ -11,15 +11,15 @@ import {
 } from './KhoanSapToiQueries';
 import { trienKhaiKhoanLapLai } from './TrienKhaiKhoanLapLai';
 
-// How far ahead to look for the next unpaid occurrence of an item.
+// Tìm kỳ chưa trả tiếp theo của một khoản trong bao nhiêu ngày tới.
 const SO_NGAY_TIM_KY_TOI = 400;
 
 export type KhoanKemKyToi = KhoanSapToi & {
-  // Next date from today that is not paid yet, or null when there is none.
+  // Ngày gần nhất từ hôm nay mà chưa trả, hoặc null nếu không có.
   kyToiTiep: string | null;
 };
 
-// The occurrences of one item inside [tuNgay, denNgay] that are not paid yet.
+// Những kỳ chưa trả của một khoản nằm trong [tuNgay, denNgay].
 export function unpaidOccurrences(
   khoan: KhoanSapToi,
   tuNgay: string,
@@ -55,8 +55,8 @@ export async function removeItem(khoanId: number, nguoiDungId: number): Promise<
   await deleteItem(khoanId);
 }
 
-// Used when a transaction says "this pays the occurrence of item X on day Y":
-// the item must be mine and Y must really be one of its dates.
+// Dùng khi một giao dịch nói "khoản này trả kỳ ngày Y của khoản sắp tới X":
+// X phải là của tôi và Y phải đúng là một ngày của X.
 export async function checkOccurrenceOfUser(khoanId: number, kyNgay: string, nguoiDungId: number): Promise<void> {
   const khoan = await findPersonalItemOfUser(khoanId, nguoiDungId);
   if (!khoan) {

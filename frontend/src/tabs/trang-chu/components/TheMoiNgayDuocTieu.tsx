@@ -10,14 +10,14 @@ type TheMoiNgayDuocTieuProps = {
   khiTaoVi: () => void;
 };
 
-// ⭐ The main card of Home: how much the user can spend per day until money comes in,
-// why (real money or budget), and the group debts that change it.
+// ⭐ Thẻ chính của Trang chủ: mỗi ngày người dùng được tiêu bao nhiêu cho tới khi có tiền vào,
+// vì sao (tiền thật hay ngân sách), và các khoản nợ nhóm làm thay đổi con số đó.
 export default function TheMoiNgayDuocTieu({ duBao, khiTaoVi }: TheMoiNgayDuocTieuProps) {
   if (!duBao) {
     return <View style={[styles.card, styles.loading]} />;
   }
 
-  // Without a wallet the app does not know how much money there is.
+  // Chưa có ví thì app không biết người dùng có bao nhiêu tiền.
   if (!duBao.coVi) {
     return (
       <View style={styles.card}>

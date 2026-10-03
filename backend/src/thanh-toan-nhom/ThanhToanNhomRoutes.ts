@@ -4,12 +4,12 @@ import requireAuth from '../auth/requireAuth';
 import { readIdFromUrl, readPositiveInteger } from '../validation/readInput';
 import { cancelPayment, receivePayment, sendPayment } from './ThanhToanNhomService';
 
-// Mounted at /nhom/:nhomId/thanh-toan, so it needs mergeParams to see :nhomId.
+// Gắn ở /nhom/:nhomId/thanh-toan, nên cần mergeParams để đọc được :nhomId.
 const thanhToanNhomRoutes = Router({ mergeParams: true });
 
 thanhToanNhomRoutes.use(requireAuth);
 
-// "Đã trả": the logged-in user pays someone in the group.
+// "Đã trả": người đang đăng nhập trả tiền cho một người trong nhóm.
 thanhToanNhomRoutes.post<{ nhomId: string }>('/', async (request, response) => {
   const nhomId = readIdFromUrl(request.params.nhomId);
   const nguoiNhanId = readPositiveInteger(request.body?.nguoiNhanId, 'Người nhận');
@@ -20,7 +20,7 @@ thanhToanNhomRoutes.post<{ nhomId: string }>('/', async (request, response) => {
   response.status(201).json({ thanhToanId });
 });
 
-// "Đã nhận": the receiver confirms.
+// "Đã nhận": người nhận xác nhận.
 thanhToanNhomRoutes.post<{ nhomId: string; thanhToanId: string }>('/:thanhToanId/xac-nhan', async (request, response) => {
   const nhomId = readIdFromUrl(request.params.nhomId);
   const thanhToanId = readIdFromUrl(request.params.thanhToanId);

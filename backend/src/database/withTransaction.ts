@@ -2,8 +2,8 @@ import type { PoolClient } from 'pg';
 
 import database from './database';
 
-// Runs several queries as one transaction: either all of them are saved, or none.
-// Every query inside must use the given client (a transaction lives on one connection).
+// Chạy nhiều câu truy vấn như một transaction: hoặc lưu hết, hoặc không lưu gì.
+// Mọi câu truy vấn bên trong phải dùng client được truyền vào (transaction chỉ sống trên một kết nối).
 export default async function withTransaction<Result>(work: (client: PoolClient) => Promise<Result>): Promise<Result> {
   const client = await database.connect();
   try {

@@ -18,8 +18,8 @@ import readMoneyInput from '../../shared/moneyInput';
 
 type Props = NativeStackScreenProps<MainStackParams, 'KeHoachNhom'>;
 
-// Group plans ("Đà Lạt on 15/11, about 1.5 million each"). Only people who press "Tôi tham gia"
-// get the amount in their own forecast; bills added to the plan later are subtracted from it.
+// Kế hoạch nhóm ("Đà Lạt ngày 15/11, mỗi người khoảng 1,5 triệu"). Chỉ người bấm "Tôi tham gia"
+// mới có khoản này trong dự báo của mình; hóa đơn thêm vào kế hoạch sau đó được trừ ra.
 export default function KeHoachNhom({ route }: Props) {
   const { nhomId } = route.params;
   const { token } = useAuth();

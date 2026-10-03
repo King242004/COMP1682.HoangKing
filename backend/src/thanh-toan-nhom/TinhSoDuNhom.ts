@@ -10,10 +10,10 @@ export type ThanhToanDeTinh = {
   soTien: number;
 };
 
-// Group balance of every member (tai-lieu/Evenwise.md, section 4.3):
-//   + what they paid for bills − their share of bills
-//   + debt payments they sent   − debt payments they received (confirmed payments only).
-// Positive = the group owes them. Negative = they owe the group. All balances add up to 0.
+// Số dư nhóm của từng thành viên (tai-lieu/Evenwise.md, mục 4.3):
+//   + tiền đã trả cho hóa đơn − phần phải chịu trong hóa đơn
+//   + tiền trả nợ đã gửi      − tiền trả nợ đã nhận (chỉ tính lần trả đã xác nhận).
+// Dương = nhóm nợ người đó. Âm = người đó nợ nhóm. Tổng mọi số dư luôn bằng 0.
 export function tinhSoDuNhom(
   thanhVienIds: number[],
   danhSachHoaDon: HoaDonDeTinh[],

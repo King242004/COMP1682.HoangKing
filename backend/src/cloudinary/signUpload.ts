@@ -1,9 +1,9 @@
 import crypto from 'node:crypto';
 
-// Builds the signature Cloudinary asks for on a "signed upload".
-// Rule from Cloudinary's docs: sort the parameters by name, join them as "a=1&b=2",
-// add the API secret at the end, then take the SHA-1 hash in hex.
-// This is a pure function: same input, same output, no network.
+// Tạo chữ ký mà Cloudinary yêu cầu khi "tải ảnh có ký".
+// Quy tắc theo tài liệu Cloudinary: sắp xếp tham số theo tên, nối thành "a=1&b=2",
+// thêm API secret vào cuối, rồi lấy mã băm SHA-1 dạng hex.
+// Đây là hàm thuần: cùng đầu vào thì cùng kết quả, không gọi mạng.
 export default function signUpload(params: Record<string, string | number>, apiSecret: string): string {
   const joined = Object.keys(params)
     .sort()

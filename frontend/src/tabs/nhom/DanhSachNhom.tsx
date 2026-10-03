@@ -11,7 +11,7 @@ import type { MainStackParams } from '../../navigation/AppNavigator';
 import colors from '../../shared/colors';
 import moTaSoDu from './moTaSoDu';
 
-// Groups tab: every group I am in, with my balance in each, plus "create" and "join by code".
+// Tab Nhóm: mọi nhóm tôi đang ở, kèm số dư của tôi trong từng nhóm, cùng nút "tạo nhóm" và "vào bằng mã".
 export default function DanhSachNhom() {
   const { token } = useAuth();
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParams>>();

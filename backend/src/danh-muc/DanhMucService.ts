@@ -8,14 +8,14 @@ import {
   type DanhMuc,
 } from './DanhMucQueries';
 
-// Icon given to a user's own category when they do not pick one.
+// Icon gán cho danh mục riêng khi người dùng không chọn.
 const BIEU_TUONG_MAC_DINH = 'pricetag-outline';
 
 export async function getCategories(nguoiDungId: number): Promise<DanhMuc[]> {
   return listCategories(nguoiDungId);
 }
 
-// Used by other services to make sure a category exists, is visible to the caller and has the right type.
+// Các service khác dùng hàm này để chắc rằng danh mục tồn tại, người gọi được thấy, và đúng loại thu/chi.
 export async function getCategoryForUse(
   danhMucId: number,
   nguoiDungId: number,

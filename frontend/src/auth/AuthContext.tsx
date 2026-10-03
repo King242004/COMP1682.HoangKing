@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { getMeApi, loginApi, registerApi, type NguoiDung } from '../api/authApi';
 import { ApiError } from '../shared/apiClient';
 
-// Name of the slot in the phone's secure storage (iOS Keychain / Android Keystore) that keeps the token.
+// Tên ô trong bộ nhớ bảo mật của điện thoại (iOS Keychain / Android Keystore) dùng để giữ token.
 const TOKEN_KEY = 'evenwise-token';
 
 type AuthContextValue = {
@@ -18,13 +18,13 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// Keeps who is logged in, for the whole app, and remembers it after the app is closed.
+// Giữ thông tin ai đang đăng nhập cho cả app, và nhớ cả sau khi tắt app.
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [nguoiDung, setNguoiDung] = useState<NguoiDung | null>(null);
   const [dangKiemTra, setDangKiemTra] = useState(true);
 
-  // When the app opens: read the saved token and ask the backend who it belongs to.
+  // Khi mở app: đọc token đã lưu và hỏi backend token đó là của ai.
   useEffect(() => {
     async function restoreLogin() {
       try {
@@ -37,8 +37,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setToken(savedToken);
         setNguoiDung(ketQua.nguoiDung);
       } catch (error) {
-        // 401 = the token expired or is invalid, so forget it. Other errors (no network) keep it
-        // saved, so the next time the app opens with network the user is logged in again.
+        // 401 = token hết hạn hoặc không hợp lệ, nên xóa đi. Lỗi khác (mất mạng) thì vẫn giữ,
+        // để lần sau mở app có mạng là người dùng được đăng nhập lại.
         if (error instanceof ApiError && error.status === 401) {
           await SecureStore.deleteItemAsync(TOKEN_KEY);
         }

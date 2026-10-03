@@ -11,8 +11,8 @@ type ChonAnhProps = {
   khiDoiAnh: (anhUrl: string | null) => void;
 };
 
-// Optional photo for an expense (or a group bill): take one, pick one, or remove it.
-// The photo is uploaded right after picking, so saving the form stays fast.
+// Ảnh không bắt buộc cho khoản chi (hoặc hóa đơn nhóm): chụp, chọn, hoặc bỏ ảnh.
+// Ảnh được tải lên ngay sau khi chọn, nên lúc lưu form vẫn nhanh.
 export default function ChonAnh({ anhUrl, khiDoiAnh }: ChonAnhProps) {
   const { token } = useAuth();
   const [dangTai, setDangTai] = useState(false);

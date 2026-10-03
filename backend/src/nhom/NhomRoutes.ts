@@ -19,7 +19,7 @@ nhomRoutes.post('/', async (request, response) => {
   response.status(201).json({ nhom });
 });
 
-// Join a group by its 6-character invite code (typed in any case, e.g. "k7q2xm").
+// Vào nhóm bằng mã mời 6 ký tự (gõ hoa hay thường đều được, ví dụ "k7q2xm").
 nhomRoutes.post('/tham-gia', async (request, response) => {
   const maMoi = readText(request.body?.maMoi, 'mã mời').toUpperCase();
   const nhom = await joinGroup(maMoi, response.locals.nguoiDungId);

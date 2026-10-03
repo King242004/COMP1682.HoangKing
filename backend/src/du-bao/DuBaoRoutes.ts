@@ -9,7 +9,7 @@ const duBaoRoutes = Router();
 
 duBaoRoutes.use(requireAuth);
 
-// Example: GET /du-bao?lichTu=2026-10-01&lichDen=2026-10-31 (the month the calendar shows).
+// Ví dụ: GET /du-bao?lichTu=2026-10-01&lichDen=2026-10-31 (tháng đang hiện trên lịch).
 duBaoRoutes.get('/', async (request, response) => {
   const lichTu = readDate(request.query.lichTu, 'Từ ngày');
   const lichDen = readDate(request.query.lichDen, 'Đến ngày');

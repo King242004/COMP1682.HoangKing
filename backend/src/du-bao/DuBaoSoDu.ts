@@ -8,13 +8,13 @@ export type SoDuTheoNgay = {
 
 export type KetQuaDuBao = {
   theoNgay: SoDuTheoNgay[];
-  // First day the balance goes below 0, or null if it never does in the forecast window.
+  // Ngày đầu tiên số dư xuống dưới 0, hoặc null nếu trong khoảng dự báo không bao giờ âm.
   ngayHetTien: string | null;
 };
 
-// ⭐ Balance forecast (tai-lieu/Evenwise.md, section 4.2), day by day for `soNgay` days from today:
-// yesterday's balance − usual daily spending (from tomorrow on) − payments that day + income that day.
-// tocDoTieu = my average spending per day over the last 7 days.
+// ⭐ Dự báo số dư (tai-lieu/Evenwise.md, mục 4.2), từng ngày trong `soNgay` ngày kể từ hôm nay:
+// số dư hôm trước − mức tiêu thường ngày (từ ngày mai) − khoản phải trả hôm đó + tiền vào hôm đó.
+// tocDoTieu = trung bình mỗi ngày tôi tiêu bao nhiêu trong 7 ngày gần nhất.
 export function duBaoSoDu(
   soDuHienTai: number,
   tocDoTieu: number,
@@ -29,7 +29,7 @@ export function duBaoSoDu(
   for (let buoc = 0; buoc < soNgay; buoc += 1) {
     const ngay = addDays(homNay, buoc);
 
-    // Today's own spending is already inside the wallet balance, so the usual rate starts tomorrow.
+    // Tiền tiêu hôm nay đã nằm trong số dư ví rồi, nên mức tiêu thường ngày bắt đầu từ ngày mai.
     if (buoc > 0) {
       soDu -= tocDoTieu;
     }

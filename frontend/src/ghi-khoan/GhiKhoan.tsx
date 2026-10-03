@@ -21,19 +21,19 @@ import readMoneyInput from '../shared/moneyInput';
 
 type Props = NativeStackScreenProps<MainStackParams, 'GhiKhoan'>;
 
-// Record one personal income or expense. Opened by the + button (new),
-// or by tapping an existing row (edit, with a delete button).
+// Ghi một khoản thu hoặc chi cá nhân. Mở từ nút + (ghi mới),
+// hoặc bấm vào một dòng đã có (sửa, có nút xóa).
 export default function GhiKhoan({ route, navigation }: Props) {
   const { token } = useAuth();
   const giaoDichDangSua = route.params?.giaoDich ?? null;
-  // Opened from 'Khoản sắp tới' → 'Đã trả': the form starts from that item and marks it paid.
+  // Mở từ 'Khoản sắp tới' → 'Đã trả': form bắt đầu từ khoản đó và đánh dấu kỳ đó đã trả.
   const khoanSapToi = route.params?.khoanSapToi ?? null;
 
   const [danhSachVi, setDanhSachVi] = useState<Vi[]>([]);
   const [danhSachDanhMuc, setDanhSachDanhMuc] = useState<DanhMuc[]>([]);
   const [dangTai, setDangTai] = useState(true);
 
-  // When editing, the form starts filled with the existing values.
+  // Khi sửa, form điền sẵn các giá trị đang có.
   const [loai, setLoai] = useState<'thu' | 'chi'>(giaoDichDangSua?.loai ?? khoanSapToi?.loai ?? 'chi');
   const [soTienText, setSoTienText] = useState(
     giaoDichDangSua ? String(giaoDichDangSua.soTien) : khoanSapToi ? String(khoanSapToi.soTien) : '',
@@ -50,7 +50,7 @@ export default function GhiKhoan({ route, navigation }: Props) {
     navigation.setOptions({ title: giaoDichDangSua ? 'Sửa khoản' : 'Ghi khoản' });
   }, [navigation, giaoDichDangSua]);
 
-  // Reload wallets when coming back from the Wallet screen (the user may have just created one).
+  // Tải lại danh sách ví khi quay về từ màn Ví (người dùng có thể vừa tạo ví mới).
   useFocusEffect(
     useCallback(() => {
       async function taiDuLieu() {
@@ -61,7 +61,7 @@ export default function GhiKhoan({ route, navigation }: Props) {
           const [viList, danhMucList] = await Promise.all([getViList(token), getDanhMucList(token)]);
           setDanhSachVi(viList);
           setDanhSachDanhMuc(danhMucList);
-          // Pick the first wallet for the user if none is picked yet.
+          // Chọn sẵn ví đầu tiên nếu người dùng chưa chọn ví nào.
           setViId((dangChon) => dangChon ?? viList[0]?.id ?? null);
         } catch (error) {
           setLoi(error instanceof Error ? error.message : 'Không tải được dữ liệu');
@@ -73,7 +73,7 @@ export default function GhiKhoan({ route, navigation }: Props) {
     }, [token]),
   );
 
-  // A category of the other type cannot be used, so the choice is cleared when switching thu/chi.
+  // Danh mục khác loại thì không dùng được, nên đổi thu/chi là xóa lựa chọn danh mục.
   function doiLoai(loaiMoi: 'thu' | 'chi') {
     if (loaiMoi !== loai) {
       setLoai(loaiMoi);
@@ -159,7 +159,7 @@ export default function GhiKhoan({ route, navigation }: Props) {
     );
   }
 
-  // No wallet yet: the money has to come from somewhere, so send the user to create one first.
+  // Chưa có ví: tiền phải nằm ở đâu đó, nên đưa người dùng đi tạo ví trước.
   if (danhSachVi.length === 0) {
     return (
       <View style={styles.center}>

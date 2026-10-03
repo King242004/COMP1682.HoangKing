@@ -1,5 +1,5 @@
-// An error that already knows which HTTP status to send back.
-// Services throw it; the error handler in App.ts turns it into a JSON response.
+// Lỗi đã biết sẵn phải trả về mã HTTP nào.
+// Service ném lỗi này ra; bộ xử lý lỗi trong App.ts đổi nó thành phản hồi JSON.
 export class HttpError extends Error {
   status: number;
 

@@ -1,8 +1,8 @@
 import colors from '../../shared/colors';
 import formatMoney from '../../shared/formatMoney';
 
-// Turns a group balance into words and a color, so it is never shown by color alone.
-// Positive = the group owes this person; negative = this person owes the group.
+// Đổi số dư nhóm thành chữ và màu, để không bao giờ chỉ dựa vào màu.
+// Dương = nhóm nợ người này; âm = người này nợ nhóm.
 export default function moTaSoDu(soDu: number, laToi: boolean): { chu: string; mau: string } {
   if (soDu > 0) {
     return { chu: `${laToi ? 'Bạn được' : 'Được'} nhận ${formatMoney(soDu)}`, mau: colors.income };

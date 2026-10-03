@@ -16,7 +16,7 @@ const NHAN_NGUON: Record<KhoanTrenLich['nguon'], string> = {
   ke_hoach_nhom: 'Kế hoạch nhóm',
 };
 
-// One future money movement: a personal upcoming item, a group debt, or a group plan.
+// Một khoản tiền tương lai: khoản sắp tới cá nhân, nợ nhóm, hoặc kế hoạch nhóm.
 export default function DongKhoanSapToi({ khoan }: DongKhoanSapToiProps) {
   const laThu = khoan.loai === 'thu';
   const tuNhom = khoan.nguon !== 'ca_nhan';

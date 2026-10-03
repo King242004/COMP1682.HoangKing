@@ -18,21 +18,21 @@ const TEN_THU = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 
 type TongNgay = { chi: number; thu: number; anhUrl: string | null };
 
-// Month calendar. A day with a photo shows that photo (like CapMoney); every day also shows
-// how much was spent (red) or, on days with only income, received (green).
-// Fill color of a future day, from its most important upcoming item: group debt, then group plan,
-// then money coming in, then a personal payment.
-function mauNgayTuongLai(khoan: KhoanTrenLich[]): string | null {
-  if (khoan.some((k) => k.nguon === 'no_nhom')) {
+// Lịch tháng. Ngày có ảnh thì hiện ảnh đó (giống CapMoney); ngày nào cũng hiện
+// đã tiêu bao nhiêu (đỏ), hoặc với ngày chỉ có thu thì hiện đã nhận bao nhiêu (xanh lá).
+// Màu nền của ngày tương lai, theo khoản quan trọng nhất ngày đó: nợ nhóm, rồi kế hoạch nhóm,
+// rồi tiền vào, rồi khoản phải trả cá nhân.
+function mauNgayTuongLai(cacKhoan: KhoanTrenLich[]): string | null {
+  if (cacKhoan.some((khoan) => khoan.nguon === 'no_nhom')) {
     return colors.warningBackground;
   }
-  if (khoan.some((k) => k.nguon === 'ke_hoach_nhom')) {
+  if (cacKhoan.some((khoan) => khoan.nguon === 'ke_hoach_nhom')) {
     return colors.groupBackground;
   }
-  if (khoan.some((k) => k.loai === 'thu')) {
+  if (cacKhoan.some((khoan) => khoan.loai === 'thu')) {
     return colors.upcomingIncomeBackground;
   }
-  return khoan.length > 0 ? colors.upcomingExpenseBackground : null;
+  return cacKhoan.length > 0 ? colors.upcomingExpenseBackground : null;
 }
 
 export default function LichThang({ thang, danhSachGiaoDich, khoanTrenLich, khiChonNgay }: LichThangProps) {
@@ -40,7 +40,7 @@ export default function LichThang({ thang, danhSachGiaoDich, khoanTrenLich, khiC
   const ngayCuoi = endOfMonth(thang);
   const homNay = todayKey();
 
-  // Add up income and spending for each day of the month.
+  // Cộng thu và chi cho từng ngày trong tháng.
   const tongTheoNgay: Record<string, TongNgay> = {};
   for (const giaoDich of danhSachGiaoDich) {
     const tong = tongTheoNgay[giaoDich.ngay] ?? { chi: 0, thu: 0, anhUrl: null };
@@ -49,7 +49,7 @@ export default function LichThang({ thang, danhSachGiaoDich, khoanTrenLich, khiC
     tongTheoNgay[giaoDich.ngay] = tong;
   }
 
-  // Empty cells before day 1 so it lands under the right weekday.
+  // Các ô trống trước ngày 1 để ngày 1 rơi đúng cột thứ trong tuần.
   const oTrong = Array.from({ length: weekdayIndex(ngayDau) }, (_, index) => `trong-${index}`);
   const cacNgay: string[] = [];
   for (let ngay = ngayDau; ngay <= ngayCuoi; ngay = addDays(ngay, 1)) {
@@ -72,7 +72,7 @@ export default function LichThang({ thang, danhSachGiaoDich, khoanTrenLich, khiC
           const soNgay = Number(ngay.slice(8));
           const khoanNgayNay = khoanTrenLich.filter((khoan) => khoan.ngay === ngay);
           const mauTuongLai = mauNgayTuongLai(khoanNgayNay);
-          const moTaSapToi = khoanNgayNay.length > 0 ? `, sắp tới: ${khoanNgayNay.map((k) => k.ten).join(', ')}` : '';
+          const moTaSapToi = khoanNgayNay.length > 0 ? `, sắp tới: ${khoanNgayNay.map((khoan) => khoan.ten).join(', ')}` : '';
           const moTaTien = tong
             ? `chi ${formatMoney(tong.chi)}, thu ${formatMoney(tong.thu)}`
             : 'chưa có khoản nào';
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   dayPhoto: {
     borderRadius: 15,
   },
-  // White number with a dark outline so it stays readable on any photo.
+  // Số màu trắng có viền tối để đọc được trên mọi ảnh.
   dayNumberOnPhoto: {
     fontSize: 13,
     fontWeight: '700',

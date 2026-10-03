@@ -7,10 +7,10 @@ export type Vi = {
   soDuHienTai: number;
 };
 
-// Current balance = starting balance
-//   + personal income − personal spending recorded with this wallet
-//   − group bills paid from this wallet
-//   + confirmed debt payments received into this wallet − confirmed debt payments sent from it.
+// Số dư hiện tại = số dư ban đầu
+//   + thu cá nhân − chi cá nhân ghi bằng ví này
+//   − hóa đơn nhóm trả bằng ví này
+//   + tiền trả nợ đã xác nhận nhận vào ví này − tiền trả nợ đã xác nhận gửi từ ví này.
 const SELECT_VI_KEM_SO_DU = `
   SELECT v.id,
          v.ten,
@@ -55,7 +55,7 @@ export async function updateWallet(viId: number, ten: string, soDuBanDau: number
   await database.query('UPDATE vi SET ten = $1, so_du_ban_dau = $2 WHERE id = $3', [ten, soDuBanDau, viId]);
 }
 
-// How many records still point to this wallet. A wallet in use cannot be deleted.
+// Còn bao nhiêu dữ liệu đang dùng ví này. Ví đang được dùng thì không xóa được.
 export async function countWalletUsage(viId: number): Promise<number> {
   const result = await database.query<{ soLan: number }>(
     `SELECT (SELECT COUNT(*) FROM giao_dich WHERE vi_id = $1)

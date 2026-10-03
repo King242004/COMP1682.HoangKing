@@ -1,6 +1,6 @@
 import { callApi } from '../shared/apiClient';
 
-// "I will pay all my debt in this group by ngayHen" (saving again replaces the date).
+// "Tôi sẽ trả hết nợ nhóm này trước ngayHen" (lưu lần nữa thì thay ngày cũ).
 export async function henTraNo(token: string, nhomId: number, ngayHen: string): Promise<void> {
   await callApi<void>(`/nhom/${nhomId}/hen-tra-no`, { method: 'PUT', token, body: { ngayHen } });
 }

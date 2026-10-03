@@ -8,7 +8,7 @@ export type KhoanSapToi = {
   ngayBatDau: string;
   lapLai: 'khong' | 'tuan' | 'thang';
   ngayKetThuc: string | null;
-  // Next date from today that is not paid yet.
+  // Ngày gần nhất từ hôm nay mà chưa trả.
   kyToiTiep: string | null;
 };
 

@@ -11,13 +11,13 @@ import TextField from '../../shared/components/TextField';
 import formatMoney from '../../shared/formatMoney';
 import readMoneyInput from '../../shared/moneyInput';
 
-// Wallets: see every wallet with its current balance, add one, edit one, delete an unused one.
+// Ví: xem mọi ví kèm số dư hiện tại, thêm ví, sửa ví, xóa ví chưa dùng.
 export default function Vi() {
   const { token } = useAuth();
   const [danhSachVi, setDanhSachVi] = useState<ViType[]>([]);
   const [loi, setLoi] = useState('');
 
-  // The form is used both to add a wallet (viDangSua = null) and to edit one.
+  // Form dùng cho cả thêm ví (viDangSua = null) và sửa ví.
   const [viDangSua, setViDangSua] = useState<ViType | null>(null);
   const [ten, setTen] = useState('');
   const [soDuText, setSoDuText] = useState('');
@@ -34,7 +34,7 @@ export default function Vi() {
     }
   }, [token]);
 
-  // Reload every time the screen is shown, so balances are always fresh.
+  // Tải lại mỗi lần màn hình hiện ra, để số dư luôn mới.
   useFocusEffect(
     useCallback(() => {
       taiDanhSach();

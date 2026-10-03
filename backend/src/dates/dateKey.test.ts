@@ -22,7 +22,7 @@ describe('dateKey', () => {
   });
 
   it('uses Monday–Sunday weeks', () => {
-    // 2026-10-10 is a Saturday.
+    // 2026-10-10 là thứ Bảy.
     expect(startOfWeek('2026-10-10')).toBe('2026-10-05');
     expect(endOfWeek('2026-10-10')).toBe('2026-10-11');
   });

@@ -1,5 +1,5 @@
-// Every color of the app lives here (see tai-lieu/Evenwise.md, section 8).
-// Text colors are checked to have at least 4.5:1 contrast on the backgrounds they sit on.
+// Mọi màu của app nằm ở đây (xem tai-lieu/Evenwise.md, mục 8).
+// Màu chữ đã kiểm tra đạt độ tương phản tối thiểu 4.5:1 trên nền mà nó nằm lên.
 const colors = {
   background: '#F3F6FB',
   card: '#FFFFFF',
@@ -21,12 +21,12 @@ const colors = {
 
   group: '#7C3AED',
 
-  // Light fills for future days on the calendar (dark text sits on them).
+  // Màu nền nhạt cho ngày tương lai trên lịch (chữ đậm nằm trên).
   upcomingExpenseBackground: '#E0E7FF',
   upcomingIncomeBackground: '#D1FAE5',
   groupBackground: '#EDE9FE',
 
-  // Dark outline behind white text placed on top of a photo.
+  // Viền tối phía sau chữ trắng đặt trên ảnh.
   photoTextShadow: 'rgba(0, 0, 0, 0.8)',
 };
 

@@ -17,7 +17,7 @@ const SELECT_DANH_MUC = `
   FROM danh_muc
 `;
 
-// A user sees the default categories plus their own.
+// Người dùng thấy các danh mục mặc định cộng với danh mục riêng của mình.
 export async function listCategories(nguoiDungId: number): Promise<DanhMuc[]> {
   const result = await database.query<DanhMuc>(
     `${SELECT_DANH_MUC}

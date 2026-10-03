@@ -24,7 +24,7 @@ const SELECT_KHOAN = `
   FROM khoan_sap_toi
 `;
 
-// Personal upcoming items only (group plans live in ke-hoach-nhom).
+// Chỉ khoản sắp tới cá nhân (kế hoạch nhóm nằm ở ke-hoach-nhom).
 export async function listPersonalItems(nguoiDungId: number): Promise<KhoanSapToi[]> {
   const result = await database.query<KhoanSapToi>(`${SELECT_KHOAN} WHERE nguoi_dung_id = $1 ORDER BY ngay_bat_dau, id`, [
     nguoiDungId,
@@ -50,8 +50,8 @@ export async function createPersonalItem(nguoiDungId: number, duLieu: DuLieuKhoa
   return result.rows[0].id;
 }
 
-// Transactions that paid an occurrence of this item keep existing; they just lose the link.
-// Both link columns are cleared together because the table requires them to be set or empty together.
+// Giao dịch đã trả một kỳ của khoản này vẫn được giữ; chỉ mất liên kết.
+// Hai cột liên kết được xóa cùng lúc vì bảng bắt chúng phải cùng có hoặc cùng trống.
 export async function deleteItem(khoanId: number): Promise<void> {
   await withTransaction(async (client) => {
     await client.query('UPDATE giao_dich SET khoan_sap_toi_id = NULL, ky_ngay = NULL WHERE khoan_sap_toi_id = $1', [

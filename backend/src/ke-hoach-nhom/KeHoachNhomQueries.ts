@@ -1,8 +1,8 @@
 import database from '../database/database';
 import withTransaction from '../database/withTransaction';
 
-// A group plan is a row of khoan_sap_toi owned by a group (nhom_id), happening once on ngay_bat_dau.
-// so_tien is the expected amount per person.
+// Kế hoạch nhóm là một dòng khoan_sap_toi do nhóm sở hữu (nhom_id), diễn ra một lần vào ngay_bat_dau.
+// so_tien là số tiền dự kiến của mỗi người.
 
 export type KeHoachNhom = {
   id: number;
@@ -62,7 +62,7 @@ export async function listPlansOfGroup(nhomId: number, nguoiDungId: number): Pro
   return result.rows;
 }
 
-// Plans I joined, in all my groups, with my share of the bills already linked to each plan.
+// Các kế hoạch tôi đã tham gia, trong mọi nhóm của tôi, kèm phần của tôi trong hóa đơn đã gắn vào từng kế hoạch.
 export async function listPlansJoinedByUser(nguoiDungId: number): Promise<KeHoachToiThamGia[]> {
   const result = await database.query<KeHoachToiThamGia>(
     `SELECT k.id           AS "keHoachId",
@@ -101,7 +101,7 @@ export async function leavePlan(keHoachId: number, nguoiDungId: number): Promise
   ]);
 }
 
-// Bills linked to the plan stay; only their link is cleared (ON DELETE SET NULL).
+// Hóa đơn đã gắn vào kế hoạch vẫn còn; chỉ mất liên kết (ON DELETE SET NULL).
 export async function deletePlan(keHoachId: number): Promise<void> {
   await database.query('DELETE FROM khoan_sap_toi WHERE id = $1', [keHoachId]);
 }

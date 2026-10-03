@@ -1,6 +1,6 @@
 import database from '../database/database';
 
-// One line of "my money": either a personal transaction, or my share of a group bill.
+// Một dòng "tiền của tôi": hoặc giao dịch cá nhân, hoặc phần của tôi trong hóa đơn nhóm.
 export type GiaoDich = {
   id: number;
   nguon: 'ca_nhan' | 'nhom';
@@ -25,7 +25,7 @@ export type DuLieuGiaoDich = {
   ngay: string;
   ghiChu: string | null;
   anhUrl: string | null;
-  // Set when this transaction pays one occurrence of an upcoming item (so the forecast stops counting it).
+  // Có giá trị khi giao dịch này trả một kỳ của khoản sắp tới (để dự báo thôi tính kỳ đó).
   khoanSapToiId: number | null;
   kyNgay: string | null;
 };
@@ -49,7 +49,7 @@ const SELECT_GIAO_DICH_CA_NHAN = `
   JOIN danh_muc d ON d.id = g.danh_muc_id
 `;
 
-// ⭐ My share of a group bill counts as my spending (only my share, not the whole bill).
+// ⭐ Phần của tôi trong hóa đơn nhóm được tính là chi tiêu của tôi (chỉ phần của tôi, không phải cả hóa đơn).
 const SELECT_PHAN_CUA_TOI_TRONG_NHOM = `
   SELECT h.id,
          'nhom'       AS nguon,
@@ -70,8 +70,8 @@ const SELECT_PHAN_CUA_TOI_TRONG_NHOM = `
   JOIN danh_muc d ON d.id = h.danh_muc_id
 `;
 
-// viId = null means "all wallets", which also includes my shares of group bills.
-// Filtering by a wallet shows only personal transactions of that wallet.
+// viId = null nghĩa là "tất cả ví", khi đó có cả phần của tôi trong hóa đơn nhóm.
+// Lọc theo một ví thì chỉ hiện giao dịch cá nhân của ví đó.
 export async function listTransactions(
   nguoiDungId: number,
   tuNgay: string,
@@ -132,7 +132,7 @@ export async function createTransaction(nguoiDungId: number, duLieu: DuLieuGiaoD
   return result.rows[0].id;
 }
 
-// Editing keeps the link to the upcoming item as it was.
+// Khi sửa thì giữ nguyên liên kết với khoản sắp tới.
 export async function updateTransaction(giaoDichId: number, duLieu: DuLieuGiaoDich): Promise<void> {
   await database.query(
     `UPDATE giao_dich
@@ -146,8 +146,8 @@ export async function deleteTransaction(giaoDichId: number): Promise<void> {
   await database.query('DELETE FROM giao_dich WHERE id = $1', [giaoDichId]);
 }
 
-// ⭐ "Chi tiêu của tôi" in a range: personal spending + my shares of group bills.
-// danhMucId = null means every category. Used by budgets and by the forecast's spending speed.
+// ⭐ "Chi tiêu của tôi" trong một khoảng ngày: chi tiêu cá nhân + phần của tôi trong hóa đơn nhóm.
+// danhMucId = null nghĩa là mọi danh mục. Dùng cho ngân sách và cho tốc độ tiêu của dự báo.
 export async function sumMySpending(
   nguoiDungId: number,
   tuNgay: string,
@@ -167,7 +167,7 @@ export async function sumMySpending(
   return result.rows[0].tong;
 }
 
-// Which occurrences of my upcoming items are already paid (khoan_sap_toi_id + ky_ngay).
+// Những kỳ nào của khoản sắp tới đã được trả (khoan_sap_toi_id + ky_ngay).
 export async function listPaidOccurrences(nguoiDungId: number): Promise<{ khoanSapToiId: number; kyNgay: string }[]> {
   const result = await database.query<{ khoanSapToiId: number; kyNgay: string }>(
     `SELECT khoan_sap_toi_id AS "khoanSapToiId", ky_ngay AS "kyNgay"

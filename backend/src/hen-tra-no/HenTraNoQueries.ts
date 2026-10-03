@@ -6,7 +6,7 @@ export type HenTraNo = {
   ngayHen: string;
 };
 
-// One promise per person per group: saving again replaces the old date.
+// Mỗi người một hẹn cho mỗi nhóm: lưu lần nữa thì thay ngày cũ.
 export async function savePromise(nhomId: number, nguoiDungId: number, ngayHen: string): Promise<void> {
   await database.query(
     `INSERT INTO hen_tra_no (nhom_id, nguoi_dung_id, ngay_hen) VALUES ($1, $2, $3)

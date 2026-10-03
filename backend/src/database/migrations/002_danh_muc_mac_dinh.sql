@@ -1,5 +1,5 @@
--- Default categories shared by every user (nguoi_dung_id = NULL).
--- bieu_tuong is an Ionicons name, the icon set that comes with Expo.
+-- Danh mục mặc định dùng chung cho mọi người dùng (nguoi_dung_id = NULL).
+-- bieu_tuong là tên icon của Ionicons, bộ icon có sẵn trong Expo.
 
 INSERT INTO danh_muc (nguoi_dung_id, ten, loai, bieu_tuong) VALUES
   (NULL, 'Ăn uống',          'chi', 'restaurant-outline'),

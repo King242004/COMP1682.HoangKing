@@ -15,8 +15,8 @@ import formatMoney from '../../shared/formatMoney';
 
 type Props = NativeStackScreenProps<MainStackParams, 'QuyetToan'>;
 
-// Settle up: who should pay whom (fewest transfers), payments waiting for confirmation, and finished ones.
-// A payment counts only after the payer says "Đã trả" AND the receiver says "Đã nhận".
+// Quyết toán: ai nên trả ai (ít lần chuyển nhất), các lần trả đang chờ xác nhận, và các lần đã xong.
+// Một lần trả chỉ được tính khi người trả bấm "Đã trả" VÀ người nhận bấm "Đã nhận".
 export default function QuyetToan({ route }: Props) {
   const { nhomId } = route.params;
   const { token, nguoiDung } = useAuth();

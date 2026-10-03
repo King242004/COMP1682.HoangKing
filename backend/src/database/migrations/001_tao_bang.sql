@@ -1,5 +1,5 @@
--- Creates all 13 tables of Evenwise (see tai-lieu/Evenwise.md, section 5).
--- Money is always INTEGER VND. Only facts are stored; balances, debts and forecasts are computed.
+-- Tạo toàn bộ 13 bảng của Evenwise (xem tai-lieu/Evenwise.md, mục 5).
+-- Tiền luôn là INTEGER VND. Chỉ lưu sự việc đã xảy ra; số dư, nợ, dự báo đều tính lại.
 
 CREATE TABLE nguoi_dung (
   id               SERIAL PRIMARY KEY,
@@ -18,7 +18,7 @@ CREATE TABLE vi (
   ngay_tao       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- nguoi_dung_id NULL = default category shared by everyone.
+-- nguoi_dung_id NULL = danh mục mặc định, ai cũng dùng chung.
 CREATE TABLE danh_muc (
   id             SERIAL PRIMARY KEY,
   nguoi_dung_id  INTEGER REFERENCES nguoi_dung (id),
@@ -42,8 +42,8 @@ CREATE TABLE thanh_vien_nhom (
   PRIMARY KEY (nhom_id, nguoi_dung_id)
 );
 
--- An upcoming item belongs to exactly one owner: a person, or a group plan.
--- For a group plan, so_tien is the expected amount per person.
+-- Một khoản sắp tới có đúng một chủ: một người, hoặc một kế hoạch của nhóm.
+-- Với kế hoạch nhóm, so_tien là số tiền dự kiến của mỗi người.
 CREATE TABLE khoan_sap_toi (
   id             SERIAL PRIMARY KEY,
   nguoi_dung_id  INTEGER REFERENCES nguoi_dung (id),
@@ -64,8 +64,8 @@ CREATE TABLE tham_gia_ke_hoach (
   PRIMARY KEY (khoan_sap_toi_id, nguoi_dung_id)
 );
 
--- khoan_sap_toi_id + ky_ngay mark which occurrence of an upcoming item this transaction paid,
--- so the forecast does not subtract it twice. Both are set together or both are NULL.
+-- khoan_sap_toi_id + ky_ngay đánh dấu giao dịch này đã trả kỳ nào của khoản sắp tới,
+-- để dự báo không trừ hai lần. Hai cột cùng có giá trị hoặc cùng NULL.
 CREATE TABLE giao_dich (
   id                SERIAL PRIMARY KEY,
   nguoi_dung_id     INTEGER NOT NULL REFERENCES nguoi_dung (id),
@@ -84,7 +84,7 @@ CREATE TABLE giao_dich (
 
 CREATE INDEX giao_dich_theo_nguoi_va_ngay ON giao_dich (nguoi_dung_id, ngay);
 
--- danh_muc_id NULL = budget for all spending.
+-- danh_muc_id NULL = ngân sách cho toàn bộ chi tiêu.
 CREATE TABLE ngan_sach (
   id             SERIAL PRIMARY KEY,
   nguoi_dung_id  INTEGER NOT NULL REFERENCES nguoi_dung (id),
@@ -96,7 +96,7 @@ CREATE TABLE ngan_sach (
   ngay_tao       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- vi_id is the payer's wallet. It can be NULL when someone else records a bill that another member paid.
+-- vi_id là ví của người trả. Được phép NULL khi một người ghi hộ hóa đơn mà thành viên khác đã trả.
 CREATE TABLE hoa_don (
   id                SERIAL PRIMARY KEY,
   nhom_id           INTEGER NOT NULL REFERENCES nhom (id) ON DELETE CASCADE,
@@ -116,7 +116,7 @@ CREATE TABLE hoa_don (
 
 CREATE INDEX hoa_don_theo_nhom ON hoa_don (nhom_id);
 
--- The sum of all shares must equal hoa_don.so_tien; the service checks this inside one transaction.
+-- Tổng các phần chia phải bằng hoa_don.so_tien; service kiểm tra việc này trong một transaction.
 CREATE TABLE phan_chia (
   hoa_don_id     INTEGER NOT NULL REFERENCES hoa_don (id) ON DELETE CASCADE,
   nguoi_dung_id  INTEGER NOT NULL REFERENCES nguoi_dung (id),
@@ -140,7 +140,7 @@ CREATE TABLE thanh_toan_nhom (
   CHECK (nguoi_tra_id <> nguoi_nhan_id)
 );
 
--- One promise per person per group: "I will pay all my debt in this group by ngay_hen".
+-- Mỗi người một hẹn cho mỗi nhóm: "Tôi sẽ trả hết nợ nhóm này trước ngay_hen".
 CREATE TABLE hen_tra_no (
   nhom_id        INTEGER NOT NULL REFERENCES nhom (id) ON DELETE CASCADE,
   nguoi_dung_id  INTEGER NOT NULL REFERENCES nguoi_dung (id),

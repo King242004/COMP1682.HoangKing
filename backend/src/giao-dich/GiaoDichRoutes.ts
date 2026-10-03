@@ -24,14 +24,14 @@ function readTransactionBody(request: Request): DuLieuGiaoDich {
     ngay: readDate(request.body?.ngay, 'Ngày'),
     ghiChu: readOptionalText(request.body?.ghiChu),
     anhUrl: readOptionalText(request.body?.anhUrl),
-    // Optional: this transaction pays the occurrence of an upcoming item on kyNgay. Both or neither.
+    // Không bắt buộc: giao dịch này trả kỳ ngày kyNgay của một khoản sắp tới. Có cả hai hoặc không có cả hai.
     khoanSapToiId:
       request.body?.khoanSapToiId == null ? null : readPositiveInteger(request.body.khoanSapToiId, 'Khoản sắp tới'),
     kyNgay: request.body?.khoanSapToiId == null ? null : readDate(request.body?.kyNgay, 'Kỳ của khoản sắp tới'),
   };
 }
 
-// Example: GET /giao-dich?tuNgay=2026-10-01&denNgay=2026-10-31&viId=2 (viId is optional)
+// Ví dụ: GET /giao-dich?tuNgay=2026-10-01&denNgay=2026-10-31&viId=2 (viId không bắt buộc)
 giaoDichRoutes.get('/', async (request, response) => {
   const tuNgay = readDate(request.query.tuNgay, 'Từ ngày');
   const denNgay = readDate(request.query.denNgay, 'Đến ngày');

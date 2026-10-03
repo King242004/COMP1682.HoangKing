@@ -7,11 +7,11 @@ import { addDays, formatDateKey, todayKey } from '../dateKey';
 type ChonNgayProps = {
   ngay: string;
   khiDoi: (ngay: string) => void;
-  // Earliest allowed day (e.g. today for a promise or a plan). No limit when left out.
+  // Ngày sớm nhất được chọn (ví dụ hôm nay cho hẹn trả hoặc kế hoạch). Bỏ trống thì không giới hạn.
   ngayNhoNhat?: string;
 };
 
-// Pick a day without a calendar library: « −7 days · ‹ −1 day · the day · › +1 day · » +7 days.
+// Chọn ngày không cần thư viện lịch: « −7 ngày · ‹ −1 ngày · ngày đang chọn · › +1 ngày · » +7 ngày.
 export default function ChonNgay({ ngay, khiDoi, ngayNhoNhat }: ChonNgayProps) {
   function doi(soNgay: number) {
     const ngayMoi = addDays(ngay, soNgay);

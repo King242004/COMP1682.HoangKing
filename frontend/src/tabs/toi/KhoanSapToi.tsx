@@ -28,9 +28,9 @@ const NHAN_LAP_LAI: Record<KhoanSapToiType['lapLai'], string> = {
   thang: 'Hằng tháng',
 };
 
-// Upcoming items: rent every month, subscriptions, a wedding on the 20th, money from home on the 1st…
-// The forecast needs them because the app cannot guess them. "Đã trả" records the payment
-// (through the Ghi khoản screen) and marks that occurrence as done.
+// Khoản sắp tới: tiền nhà hằng tháng, gói đăng ký, đám cưới ngày 20, tiền nhà gửi ngày 1…
+// Dự báo cần chúng vì app không tự đoán được. "Đã trả" ghi lại khoản đã trả
+// (qua màn Ghi khoản) và đánh dấu kỳ đó đã xong.
 export default function KhoanSapToi({ navigation }: Props) {
   const { token } = useAuth();
   const [danhSach, setDanhSach] = useState<KhoanSapToiType[]>([]);

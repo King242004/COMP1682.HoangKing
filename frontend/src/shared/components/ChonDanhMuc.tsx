@@ -10,7 +10,7 @@ type ChonDanhMucProps = {
   khiChon: (danhMucId: number) => void;
 };
 
-// A row of category chips (icon + name). Tap one to pick it.
+// Một hàng nút danh mục (icon + tên). Bấm một nút để chọn.
 export default function ChonDanhMuc({ danhSach, danhMucDangChon, khiChon }: ChonDanhMucProps) {
   return (
     <View style={styles.wrap}>

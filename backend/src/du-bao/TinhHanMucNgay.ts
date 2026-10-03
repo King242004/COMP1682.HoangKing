@@ -1,6 +1,6 @@
 import { addDays, daysBetween, endOfMonth } from '../dates/dateKey';
 
-// One future money movement the forecast knows about (personal upcoming item, group debt, group plan…).
+// Một khoản tiền tương lai mà dự báo biết (khoản sắp tới cá nhân, nợ nhóm, kế hoạch nhóm…).
 export type KhoanTuongLai = {
   ngay: string;
   soTien: number;
@@ -8,7 +8,7 @@ export type KhoanTuongLai = {
 };
 
 export type HanMucNgay = {
-  // First day new money arrives; the limit covers the days before it.
+  // Ngày đầu tiên có tiền mới vào; hạn mức tính cho những ngày trước ngày đó.
   ngayCoTien: string;
   soNgayConLai: number;
   tienDungDuoc: number;
@@ -16,13 +16,13 @@ export type HanMucNgay = {
   muonTieuMoiNgay: number | null;
   moiNgayDuocTieu: number;
   gioiHanBoi: 'tien_that' | 'ngan_sach';
-  // Extra per day if the people who owe me actually pay (shown, never counted).
+  // Mỗi ngày được thêm bao nhiêu nếu người nợ tôi trả thật (chỉ hiển thị, không cộng).
   themNeuDuocTra: number;
 };
 
-// ⭐ "Mỗi ngày được tiêu" (tai-lieu/Evenwise.md, section 4.1): the smaller of
-// (a) real money: (wallets − payments due before the next income) ÷ days until that income,
-// (b) budget:     the per-day amount left in the user's total budget (if they set one).
+// ⭐ "Mỗi ngày được tiêu" (tai-lieu/Evenwise.md, mục 4.1): lấy số nhỏ hơn giữa
+// (a) tiền thật: (số dư ví − khoản phải trả trước ngày có tiền) ÷ số ngày tới ngày có tiền,
+// (b) ngân sách: số tiền mỗi ngày còn lại trong ngân sách tổng của người dùng (nếu có đặt).
 export function tinhHanMucNgay(
   soDuVi: number,
   cacKhoan: KhoanTuongLai[],
@@ -30,7 +30,7 @@ export function tinhHanMucNgay(
   muonTieuMoiNgay: number | null,
   homNay: string,
 ): HanMucNgay {
-  // Next income after today; without one, the limit runs to the end of this month.
+  // Ngày có tiền tiếp theo sau hôm nay; không có thì hạn mức tính tới hết tháng này.
   const cacNgayCoTien = cacKhoan
     .filter((khoan) => khoan.loai === 'thu' && khoan.ngay > homNay)
     .map((khoan) => khoan.ngay)

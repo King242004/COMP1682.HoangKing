@@ -27,7 +27,7 @@ import Vi from '../tabs/toi/Vi';
 import ChiTietNgay from '../tabs/trang-chu/ChiTietNgay';
 import TrangChu from '../tabs/trang-chu/TrangChu';
 
-// Map of every screen in the app. To see which screens exist, read this file.
+// Bản đồ mọi màn hình của app. Muốn biết app có những màn nào thì đọc file này.
 
 export type AuthStackParams = {
   Login: undefined;
@@ -43,8 +43,8 @@ export type TabParams = {
 
 export type MainStackParams = {
   Tabs: undefined;
-  // New entry: optional day to pre-fill. Edit: the transaction to edit.
-  // From an upcoming item: pay its occurrence on kyNgay.
+  // Ghi mới: có thể truyền ngày điền sẵn. Sửa: truyền giao dịch cần sửa.
+  // Từ khoản sắp tới: trả kỳ ngày kyNgay của khoản đó.
   GhiKhoan:
     | {
         ngay?: string;
@@ -97,7 +97,7 @@ function Tabs() {
 export default function AppNavigator() {
   const { token, dangKiemTra } = useAuth();
 
-  // While the app is checking the saved login, show only a spinner (avoids flashing the login screen).
+  // Trong lúc app kiểm tra đăng nhập đã lưu, chỉ hiện vòng xoay (tránh nháy màn đăng nhập).
   if (dangKiemTra) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.background }}>
@@ -106,7 +106,7 @@ export default function AppNavigator() {
     );
   }
 
-  // Not logged in: only the login and register screens exist.
+  // Chưa đăng nhập: chỉ có màn đăng nhập và đăng ký.
   if (!token) {
     return (
       <AuthStack.Navigator screenOptions={{ headerShown: false }}>

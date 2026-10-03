@@ -5,7 +5,7 @@ export type KyNganSach = {
   denNgay: string;
 };
 
-// The current period of a budget: Monday–Sunday for a weekly one, day 1 → last day for a monthly one.
+// Kỳ hiện tại của một ngân sách: thứ Hai → Chủ nhật với ngân sách tuần, ngày 1 → cuối tháng với ngân sách tháng.
 export function kyHienTai(chuKy: 'tuan' | 'thang', homNay: string): KyNganSach {
   if (chuKy === 'tuan') {
     return { tuNgay: startOfWeek(homNay), denNgay: endOfWeek(homNay) };
@@ -17,12 +17,12 @@ export type ConLaiNganSach = {
   daTieu: number;
   conLai: number;
   soNgayConLai: number;
-  // What the user can still spend per day to stay inside this budget (never negative).
+  // Mỗi ngày người dùng còn được tiêu bao nhiêu để không vượt ngân sách này (không bao giờ âm).
   moiNgay: number;
 };
 
-// "Muốn tiêu" side of tai-lieu/Evenwise.md, section 4.1 (b):
-// left = budget − spent so far in the period; per day = left ÷ days left in the period (today included).
+// Phía "Muốn tiêu" ở tai-lieu/Evenwise.md, mục 4.1 (b):
+// còn lại = ngân sách − đã tiêu từ đầu kỳ; mỗi ngày = còn lại ÷ số ngày còn lại của kỳ (tính cả hôm nay).
 export function tinhConLaiNganSach(soTien: number, daTieu: number, denNgay: string, homNay: string): ConLaiNganSach {
   const conLai = soTien - daTieu;
   const soNgayConLai = daysBetween(homNay, denNgay) + 1;

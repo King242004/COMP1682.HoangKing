@@ -2,14 +2,14 @@ import { describe, expect, it } from 'vitest';
 
 import { tinhSoDuNhom } from './TinhSoDuNhom';
 
-// Members used in the examples.
+// Các thành viên dùng trong ví dụ.
 const BAN = 1;
 const LAN = 2;
 const MINH = 3;
 
 describe('tinhSoDuNhom', () => {
   it('gives the payer the money others owe, and each person minus their share', () => {
-    // Bạn pays 600.000 dinner split evenly between 3; Lan pays 90.000 water split evenly.
+    // Bạn trả 600.000 tiền ăn chia đều 3 người; Lan trả 90.000 tiền nước chia đều.
     const soDu = tinhSoDuNhom(
       [BAN, LAN, MINH],
       [

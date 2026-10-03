@@ -29,9 +29,9 @@ function tinhTong(danhSach: GiaoDich[], loai: 'thu' | 'chi'): number {
   return danhSach.filter((giaoDich) => giaoDich.loai === loai).reduce((tong, giaoDich) => tong + giaoDich.soTien, 0);
 }
 
-// Home tab (tai-lieu/Evenwise.md, section 6): greeting, ⭐ "Mỗi ngày được tiêu", reminders,
-// Day/Month switch, income/expense cards, wallet filter, then the day list or the month calendar
-// (past days = spending, future days = upcoming items).
+// Tab Trang chủ (tai-lieu/Evenwise.md, mục 6): lời chào, ⭐ "Mỗi ngày được tiêu", dòng nhắc,
+// nút Ngày/Tháng, thẻ thu/chi, lọc theo ví, rồi danh sách theo ngày hoặc lịch tháng
+// (ngày đã qua = chi tiêu, ngày tương lai = khoản sắp tới).
 export default function TrangChu() {
   const { token, nguoiDung } = useAuth();
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParams>>();
@@ -50,11 +50,11 @@ export default function TrangChu() {
   const homNay = todayKey();
   const tuNgay = cheDo === 'ngay' ? ngayDangXem : startOfMonth(ngayDangXem);
   const denNgay = cheDo === 'ngay' ? ngayDangXem : endOfMonth(ngayDangXem);
-  // Upcoming items: the whole month on the calendar, or the next 7 days in Day mode.
+  // Khoản sắp tới: cả tháng nếu xem lịch, hoặc 7 ngày tới nếu xem theo ngày.
   const lichTu = cheDo === 'ngay' ? homNay : tuNgay;
   const lichDen = cheDo === 'ngay' ? addDays(homNay, SO_NGAY_SAP_TOI - 1) : denNgay;
 
-  // Reload whenever the screen is shown again (e.g. after recording an expense) or the view changes.
+  // Tải lại mỗi khi màn hình hiện lại (ví dụ sau khi ghi một khoản chi) hoặc khi đổi cách xem.
   useFocusEffect(
     useCallback(() => {
       async function taiDuLieu() {
@@ -87,7 +87,7 @@ export default function TrangChu() {
     setNgayDangXem(cheDo === 'ngay' ? addDays(ngayDangXem, buoc) : addMonths(ngayDangXem, buoc));
   }
 
-  // A personal transaction opens for editing; my share of a group bill opens its group.
+  // Giao dịch cá nhân thì mở ra để sửa; phần của tôi trong hóa đơn nhóm thì mở nhóm đó.
   function moGiaoDich(giaoDich: GiaoDich) {
     if (giaoDich.nguon === 'nhom' && giaoDich.nhomId !== null) {
       navigation.navigate('ChiTietNhom', { nhomId: giaoDich.nhomId });

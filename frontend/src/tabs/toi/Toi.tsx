@@ -8,7 +8,7 @@ import { useAuth } from '../../auth/AuthContext';
 import type { MainStackParams } from '../../navigation/AppNavigator';
 import colors from '../../shared/colors';
 
-// "Tôi" tab: profile, personal settings (wallets, categories, upcoming items, budgets) and log out.
+// Tab "Tôi": hồ sơ, cài đặt cá nhân (ví, danh mục, khoản sắp tới, ngân sách) và đăng xuất.
 export default function Toi() {
   const { nguoiDung, logout } = useAuth();
   const navigation = useNavigation<NativeStackNavigationProp<MainStackParams>>();

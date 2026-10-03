@@ -7,7 +7,7 @@ import { kyHienTai, tinhConLaiNganSach, type ConLaiNganSach, type KyNganSach } f
 
 export type NganSachKemTinhHinh = NganSach & KyNganSach & ConLaiNganSach;
 
-// Every budget with how it is going in its current week/month.
+// Mọi ngân sách kèm tình hình của nó trong tuần/tháng hiện tại.
 export async function getBudgets(nguoiDungId: number): Promise<NganSachKemTinhHinh[]> {
   const homNay = todayInVietnam();
   const danhSach = await listBudgets(nguoiDungId);
@@ -21,8 +21,8 @@ export async function getBudgets(nguoiDungId: number): Promise<NganSachKemTinhHi
   );
 }
 
-// "Muốn tiêu mỗi ngày" for the forecast: from total budgets only (not per category).
-// With several total budgets, the strictest one wins. null when the user has none.
+// "Muốn tiêu mỗi ngày" cho dự báo: chỉ lấy từ ngân sách tổng (không lấy ngân sách theo danh mục).
+// Có nhiều ngân sách tổng thì lấy cái chặt nhất. Trả null khi người dùng chưa đặt cái nào.
 export async function getBudgetLimitPerDay(nguoiDungId: number): Promise<number | null> {
   const nganSachTong = (await getBudgets(nguoiDungId)).filter((nganSach) => nganSach.danhMucId === null);
   if (nganSachTong.length === 0) {

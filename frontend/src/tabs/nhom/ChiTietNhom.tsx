@@ -16,7 +16,7 @@ import DongSoDuThanhVien from './components/DongSoDuThanhVien';
 
 type Props = NativeStackScreenProps<MainStackParams, 'ChiTietNhom'>;
 
-// One group: invite code, each member's balance, the bills, and buttons to add a bill or settle up.
+// Một nhóm: mã mời, số dư từng thành viên, các hóa đơn, và nút thêm hóa đơn hoặc quyết toán.
 export default function ChiTietNhom({ route, navigation }: Props) {
   const { nhomId } = route.params;
   const { token, nguoiDung } = useAuth();
@@ -53,7 +53,7 @@ export default function ChiTietNhom({ route, navigation }: Props) {
     }
   }
 
-  // Tapping a bill shows how it was split, with the option to delete it.
+  // Bấm vào một hóa đơn để xem đã chia thế nào, có thể xóa.
   function xemHoaDon(hoaDon: HoaDon) {
     const cacPhan = hoaDon.phanChia.map((phan) => `• ${phan.tenHienThi}: ${formatMoney(phan.soTien)}`).join('\n');
     Alert.alert(hoaDon.ten, `${hoaDon.tenNguoiTra} trả ${formatMoney(hoaDon.soTien)}\n\n${cacPhan}`, [

@@ -1,6 +1,6 @@
 import { callApi } from '../shared/apiClient';
 
-// One line of my money: a personal transaction, or my share of a group bill (nguon = 'nhom').
+// Một dòng tiền của tôi: giao dịch cá nhân, hoặc phần của tôi trong hóa đơn nhóm (nguon = 'nhom').
 export type GiaoDich = {
   id: number;
   nguon: 'ca_nhan' | 'nhom';
@@ -25,12 +25,12 @@ export type DuLieuGiaoDich = {
   ngay: string;
   ghiChu: string | null;
   anhUrl: string | null;
-  // Set when this pays one occurrence of an upcoming item.
+  // Có giá trị khi giao dịch này trả một kỳ của khoản sắp tới.
   khoanSapToiId: number | null;
   kyNgay: string | null;
 };
 
-// viId = null means "all wallets".
+// viId = null nghĩa là "tất cả ví".
 export async function getGiaoDichList(
   token: string,
   tuNgay: string,

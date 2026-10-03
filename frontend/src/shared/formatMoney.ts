@@ -1,4 +1,4 @@
-// 600000 → "600.000đ". Money is always a whole number of VND.
+// 600000 → "600.000đ". Tiền luôn là số nguyên VND.
 export default function formatMoney(amount: number): string {
   const digits = Math.abs(amount)
     .toString()
@@ -7,7 +7,7 @@ export default function formatMoney(amount: number): string {
   return `${sign}${digits}đ`;
 }
 
-// Short form for small spaces such as calendar cells: 35000 → "35k", 1250000 → "1,2tr".
+// Dạng ngắn cho chỗ hẹp như ô lịch: 35000 → "35k", 1250000 → "1,2tr".
 export function formatShortMoney(amount: number): string {
   if (amount >= 1_000_000) {
     const millions = Math.floor(amount / 100_000) / 10;

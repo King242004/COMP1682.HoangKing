@@ -17,8 +17,8 @@ type ChiaTienProps = {
   khiDoiPhanTuyChinh: (phanTuyChinh: Record<number, string>) => void;
 };
 
-// Who shares the bill and how: evenly, or custom amounts with a live "Còn lại" line.
-// The backend does the real even split; here we only show an estimate per person.
+// Ai chịu hóa đơn và chia thế nào: chia đều, hoặc nhập từng người với dòng "Còn lại" cập nhật liên tục.
+// Backend mới chia đều thật; ở đây chỉ hiện số ước tính cho mỗi người.
 export default function ChiaTien({
   thanhVien,
   soTien,

@@ -11,12 +11,12 @@ type DongGiaoDichProps = {
   khiBam: () => void;
 };
 
-// One income/expense row: photo (or category icon), category name, note and wallet, then the amount.
+// Một dòng thu/chi: ảnh (hoặc icon danh mục), tên danh mục, ghi chú và ví, rồi tới số tiền.
 export default function DongGiaoDich({ giaoDich, khiBam }: DongGiaoDichProps) {
   const laChi = giaoDich.loai === 'chi';
   const soTien = laChi ? -giaoDich.soTien : giaoDich.soTien;
   const tuNhom = giaoDich.nguon === 'nhom';
-  // For my share of a group bill: bill name · group name.
+  // Với phần của tôi trong hóa đơn nhóm: tên hóa đơn · tên nhóm.
   const moTa = [giaoDich.ghiChu, tuNhom ? `nhóm ${giaoDich.tenVi}` : giaoDich.tenVi].filter(Boolean).join(' · ');
 
   return (

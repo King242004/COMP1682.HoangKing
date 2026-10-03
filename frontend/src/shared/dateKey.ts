@@ -1,5 +1,5 @@
-// Dates travel between the app and the backend as 'YYYY-MM-DD' text ("date key"),
-// always in the phone's local time, so "today" is the user's real today.
+// Ngày đi giữa app và backend dưới dạng chuỗi 'YYYY-MM-DD' ("date key"),
+// luôn theo giờ trên điện thoại, nên "hôm nay" là đúng hôm nay của người dùng.
 
 function pad(value: number): string {
   return String(value).padStart(2, '0');
@@ -25,7 +25,7 @@ export function addDays(dateKey: string, days: number): string {
   return toKey(date);
 }
 
-// addMonths('2026-10-15', 1) → '2026-11-01' (always the 1st, so short months never skip)
+// addMonths('2026-10-15', 1) → '2026-11-01' (luôn là ngày 1, để tháng ngắn không bị nhảy cóc)
 export function addMonths(dateKey: string, months: number): string {
   const date = toDate(dateKey);
   return toKey(new Date(date.getFullYear(), date.getMonth() + months, 1));
@@ -41,7 +41,7 @@ export function endOfMonth(dateKey: string): string {
   return toKey(new Date(date.getFullYear(), date.getMonth() + 1, 0));
 }
 
-// Weeks start on Monday, as on Vietnamese calendars.
+// Tuần bắt đầu từ thứ Hai, giống lịch Việt Nam.
 export function startOfWeek(dateKey: string): string {
   const date = toDate(dateKey);
   const daysSinceMonday = (date.getDay() + 6) % 7;
@@ -52,7 +52,7 @@ export function endOfWeek(dateKey: string): string {
   return addDays(startOfWeek(dateKey), 6);
 }
 
-// 0 = Monday … 6 = Sunday
+// 0 = thứ Hai … 6 = Chủ nhật
 export function weekdayIndex(dateKey: string): number {
   return (toDate(dateKey).getDay() + 6) % 7;
 }

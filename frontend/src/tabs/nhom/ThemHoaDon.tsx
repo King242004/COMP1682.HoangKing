@@ -23,8 +23,8 @@ import ChiaTien from './components/ChiaTien';
 
 type Props = NativeStackScreenProps<MainStackParams, 'ThemHoaDon'>;
 
-// Add a bill to a group: name, amount, who paid (and from which wallet if it was me),
-// category, date, who shares it (evenly or custom), note and photo.
+// Thêm hóa đơn vào nhóm: tên, số tiền, ai trả (và trả bằng ví nào nếu là tôi),
+// danh mục, ngày, ai chịu (chia đều hoặc tùy chỉnh), ghi chú và ảnh.
 export default function ThemHoaDon({ route, navigation }: Props) {
   const { nhomId } = route.params;
   const { token, nguoiDung } = useAuth();
@@ -66,7 +66,7 @@ export default function ThemHoaDon({ route, navigation }: Props) {
           setDanhSachKeHoach(chiTiet.danhSachKeHoach);
           setDanhSachVi(viList);
           setDanhSachDanhMuc(danhMucList.filter((danhMuc) => danhMuc.loai === 'chi'));
-          // By default the bill is shared by everyone and paid from my first wallet.
+          // Mặc định hóa đơn chia cho mọi người và trả bằng ví đầu tiên của tôi.
           setNguoiChiuIds((dangChon) => (dangChon.length > 0 ? dangChon : chiTiet.thanhVien.map((nguoi) => nguoi.id)));
           setViId((dangChon) => dangChon ?? viList[0]?.id ?? null);
         } catch (error) {
@@ -113,7 +113,7 @@ export default function ThemHoaDon({ route, navigation }: Props) {
       await createHoaDon(token, nhomId, {
         ten,
         nguoiTraId,
-        // Only the payer's own wallet can be recorded; someone else's wallet is unknown here.
+        // Chỉ ghi được ví của chính người trả; ví của người khác thì ở đây không biết.
         viId: toiLaNguoiTra ? viId : null,
         danhMucId,
         soTien,

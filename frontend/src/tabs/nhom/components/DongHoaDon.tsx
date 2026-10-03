@@ -13,7 +13,7 @@ type DongHoaDonProps = {
   khiBam: () => void;
 };
 
-// One bill of the group: who paid how much, and my own share of it.
+// Một hóa đơn của nhóm: ai trả bao nhiêu, và phần của tôi trong đó.
 export default function DongHoaDon({ hoaDon, nguoiDungId, khiBam }: DongHoaDonProps) {
   const phanCuaToi = hoaDon.phanChia.find((phan) => phan.nguoiDungId === nguoiDungId)?.soTien ?? 0;
 

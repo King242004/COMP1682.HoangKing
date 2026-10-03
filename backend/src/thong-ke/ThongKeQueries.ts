@@ -12,8 +12,8 @@ export type ChiTheoDanhMuc = {
   soTien: number;
 };
 
-// "Chi" everywhere here means "chi tiêu của tôi": personal spending + my shares of group bills
-// (tai-lieu/Evenwise.md, section 4.3). Income is personal only.
+// "Chi" ở đây luôn là "chi tiêu của tôi": chi tiêu cá nhân + phần của tôi trong hóa đơn nhóm
+// (tai-lieu/Evenwise.md, mục 4.3). Thu chỉ tính thu cá nhân.
 const CHI_TIEU_CUA_TOI = `
   SELECT danh_muc_id, so_tien FROM giao_dich
   WHERE nguoi_dung_id = $1 AND loai = 'chi' AND ngay BETWEEN $2 AND $3

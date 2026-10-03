@@ -4,7 +4,7 @@ import requireAuth from '../auth/requireAuth';
 import { readDate, readIdFromUrl, readPositiveInteger, readText } from '../validation/readInput';
 import { addPlan, join, leave, removePlan } from './KeHoachNhomService';
 
-// Mounted at /nhom/:nhomId/ke-hoach.
+// Gắn ở /nhom/:nhomId/ke-hoach.
 const keHoachNhomRoutes = Router({ mergeParams: true });
 
 keHoachNhomRoutes.use(requireAuth);

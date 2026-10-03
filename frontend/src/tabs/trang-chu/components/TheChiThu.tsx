@@ -10,7 +10,7 @@ type TheChiThuProps = {
   nhanKy: string;
 };
 
-// Two cards side by side: total spent and total received in the period being viewed.
+// Hai thẻ cạnh nhau: tổng chi và tổng thu trong khoảng thời gian đang xem.
 export default function TheChiThu({ tongChi, tongThu, nhanKy }: TheChiThuProps) {
   return (
     <View style={styles.row}>

@@ -4,8 +4,8 @@ import { tinhHanMucNgay } from './TinhHanMucNgay';
 
 const HOM_NAY = '2026-10-10';
 
-// The example of tai-lieu/Evenwise.md, section 4.1: 1.400.000 in wallets, 300.000 group debt due today,
-// ChatGPT 132.000 on the 25th, money from home on 01/11, Lan and Minh owe 400.000.
+// Ví dụ ở tai-lieu/Evenwise.md, mục 4.1: ví có 1.400.000, nợ nhóm 300.000 phải trả hôm nay,
+// ChatGPT 132.000 ngày 25, tiền nhà gửi ngày 01/11, Lan và Minh nợ 400.000.
 const VI_DU = [
   { ngay: HOM_NAY, soTien: 300000, loai: 'chi' as const },
   { ngay: '2026-10-25', soTien: 132000, loai: 'chi' as const },

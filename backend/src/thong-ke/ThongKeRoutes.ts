@@ -8,7 +8,7 @@ const thongKeRoutes = Router();
 
 thongKeRoutes.use(requireAuth);
 
-// Example: GET /thong-ke?tuNgay=2026-10-01&denNgay=2026-10-31
+// Ví dụ: GET /thong-ke?tuNgay=2026-10-01&denNgay=2026-10-31
 thongKeRoutes.get('/', async (request, response) => {
   const tuNgay = readDate(request.query.tuNgay, 'Từ ngày');
   const denNgay = readDate(request.query.denNgay, 'Đến ngày');

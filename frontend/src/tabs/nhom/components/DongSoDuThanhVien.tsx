@@ -9,7 +9,7 @@ type DongSoDuThanhVienProps = {
   laToi: boolean;
 };
 
-// One member with their balance in the group ("Được nhận 370.000đ", "Đang nợ 140.000đ", "Đã hòa").
+// Một thành viên kèm số dư trong nhóm ("Được nhận 370.000đ", "Đang nợ 140.000đ", "Đã hòa").
 export default function DongSoDuThanhVien({ thanhVien, laToi }: DongSoDuThanhVienProps) {
   const soDu = moTaSoDu(thanhVien.soDu, false);
   return (

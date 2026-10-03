@@ -14,7 +14,7 @@ export type HanMucNgay = {
 export type NhacNho = {
   mucDo: 'vang' | 'do';
   noiDung: string;
-  // 0 when the reminder is not about a group (e.g. "money runs out on …").
+  // Bằng 0 khi dòng nhắc không thuộc nhóm nào (ví dụ "hết tiền vào ngày …").
   nhomId: number;
 };
 
@@ -40,7 +40,7 @@ export type DuBao = {
   khoanTrenLich: KhoanTrenLich[];
 };
 
-// lichTu / lichDen: the days whose upcoming items should be listed (e.g. the month on the calendar).
+// lichTu / lichDen: những ngày cần liệt kê khoản sắp tới (ví dụ tháng đang hiện trên lịch).
 export function getDuBao(token: string, lichTu: string, lichDen: string): Promise<DuBao> {
   return callApi<DuBao>(`/du-bao?lichTu=${lichTu}&lichDen=${lichDen}`, { token });
 }

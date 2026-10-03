@@ -23,8 +23,8 @@ import ThanhDanhMuc from './components/ThanhDanhMuc';
 
 type Ky = 'tuan' | 'thang';
 
-// Statistics tab: income, spending and the difference for one week or month,
-// then spending per category from biggest to smallest.
+// Tab Thống kê: thu, chi và chênh lệch trong một tuần hoặc một tháng,
+// sau đó là chi theo từng danh mục, từ lớn tới nhỏ.
 export default function ThongKe() {
   const { token } = useAuth();
   const [ky, setKy] = useState<Ky>('thang');

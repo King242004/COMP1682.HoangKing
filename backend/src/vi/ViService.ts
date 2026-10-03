@@ -13,7 +13,7 @@ export async function getWallets(nguoiDungId: number): Promise<Vi[]> {
   return listWallets(nguoiDungId);
 }
 
-// Used by other services (giao dịch, hóa đơn…) to make sure a wallet belongs to the caller.
+// Các service khác (giao dịch, hóa đơn…) dùng hàm này để chắc rằng ví là của người gọi.
 export async function getWalletOfUser(viId: number, nguoiDungId: number): Promise<Vi> {
   const vi = await findWalletOfUser(viId, nguoiDungId);
   if (!vi) {

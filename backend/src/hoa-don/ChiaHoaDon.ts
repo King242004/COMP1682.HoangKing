@@ -3,10 +3,10 @@ export type PhanChia = {
   soTien: number;
 };
 
-// Splits a bill evenly between people (tai-lieu/Evenwise.md, section 4.5).
-// Each person gets the amount divided by the number of people, rounded down; the leftover
-// dong(s) go one by one to the people at the start of the list. The total is always exact.
-// Example: 100.000 for 3 people → 33.334, 33.333, 33.333.
+// Chia đều hóa đơn cho nhiều người (tai-lieu/Evenwise.md, mục 4.5).
+// Mỗi người nhận số tiền chia cho số người, làm tròn xuống; số đồng lẻ còn thiếu
+// cộng lần lượt cho những người đứng đầu danh sách. Tổng luôn khớp đúng.
+// Ví dụ: 100.000 chia 3 người → 33.334, 33.333, 33.333.
 export function chiaDeu(soTien: number, nguoiDungIds: number[]): PhanChia[] {
   const soNguoi = nguoiDungIds.length;
   const moiNguoi = Math.floor(soTien / soNguoi);
@@ -18,8 +18,8 @@ export function chiaDeu(soTien: number, nguoiDungIds: number[]): PhanChia[] {
   }));
 }
 
-// For a custom split: how much is still missing (positive) or over (negative) compared with the bill.
-// The app shows this as "Còn lại"; a bill can only be saved when it is exactly 0.
+// Khi chia tùy chỉnh: còn thiếu (dương) hoặc dư (âm) bao nhiêu so với hóa đơn.
+// App hiện con số này là "Còn lại"; chỉ lưu được hóa đơn khi nó đúng bằng 0.
 export function tinhConLai(soTien: number, phanChia: PhanChia[]): number {
   const daChia = phanChia.reduce((tong, phan) => tong + phan.soTien, 0);
   return soTien - daChia;

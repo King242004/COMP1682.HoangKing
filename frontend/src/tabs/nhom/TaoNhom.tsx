@@ -11,7 +11,7 @@ import TextField from '../../shared/components/TextField';
 
 type Props = NativeStackScreenProps<MainStackParams, 'TaoNhom'>;
 
-// Create a group. The app then opens it, where the invite code can be shared.
+// Tạo nhóm. Xong thì app mở nhóm đó, ở đó có thể gửi mã mời.
 export default function TaoNhom({ navigation }: Props) {
   const { token } = useAuth();
   const [ten, setTen] = useState('');

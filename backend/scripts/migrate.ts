@@ -5,8 +5,8 @@ import database from '../src/database/database';
 
 const migrationFolder = path.join(import.meta.dirname, '../src/database/migrations');
 
-// Runs every .sql file in the migrations folder, in name order (001, 002, ...).
-// The table schema_migrations remembers which files already ran, so each file runs only once.
+// Chạy mọi file .sql trong thư mục migrations, theo thứ tự tên (001, 002, ...).
+// Bảng schema_migrations nhớ file nào đã chạy rồi, nên mỗi file chỉ chạy một lần.
 async function runMigrations() {
   await database.query(`
     CREATE TABLE IF NOT EXISTS schema_migrations (
@@ -30,8 +30,8 @@ async function runMigrations() {
 
     const sql = fs.readFileSync(path.join(migrationFolder, fileName), 'utf8');
 
-    // Each file runs inside one transaction: if it fails halfway, nothing from that file is kept.
-    // A transaction must stay on one connection, so we borrow a single client from the pool.
+    // Mỗi file chạy trong một transaction: lỗi giữa chừng thì không giữ lại gì của file đó.
+    // Transaction phải nằm trên một kết nối, nên mượn đúng một client từ pool.
     const client = await database.connect();
     try {
       await client.query('BEGIN');

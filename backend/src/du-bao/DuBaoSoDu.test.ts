@@ -23,7 +23,7 @@ describe('duBaoSoDu', () => {
   });
 
   it('finds the first day the money runs out', () => {
-    // 500 now, 100 per day, rent 200 on the 13th → 500, 400, 300, 0 (not below 0 yet), −100 on the 14th.
+    // Đang có 500, mỗi ngày tiêu 100, tiền nhà 200 vào ngày 13 → 500, 400, 300, 0 (chưa âm), ngày 14 là −100.
     const ketQua = duBaoSoDu(500, 100, [{ ngay: '2026-10-13', soTien: 200, loai: 'chi' }], '2026-10-10', 10);
     expect(ketQua.ngayHetTien).toBe('2026-10-14');
   });

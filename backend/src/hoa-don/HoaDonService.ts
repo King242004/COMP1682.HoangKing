@@ -20,7 +20,7 @@ export type YeuCauThemHoaDon = {
   anhUrl: string | null;
   cachChia: 'deu' | 'tuy_chinh';
   khoanSapToiId: number | null;
-  // For 'deu' only nguoiDungId matters; for 'tuy_chinh' each person's soTien is used.
+  // Chia 'deu' thì chỉ cần nguoiDungId; chia 'tuy_chinh' thì dùng soTien của từng người.
   phanChia: PhanChia[];
 };
 
@@ -40,7 +40,7 @@ export async function addBill(nhomId: number, nguoiDungId: number, yeuCau: YeuCa
     throw new HttpError(400, 'Danh sách người chia không hợp lệ');
   }
 
-  // Only the person who paid can say which of their wallets the money came from.
+  // Chỉ người trả mới cho biết được tiền lấy từ ví nào của họ.
   if (yeuCau.viId !== null) {
     if (yeuCau.nguoiTraId !== nguoiDungId) {
       throw new HttpError(400, 'Chỉ người trả mới chọn được ví của mình');
@@ -64,7 +64,7 @@ export async function addBill(nhomId: number, nguoiDungId: number, yeuCau: YeuCa
     throw new HttpError(400, `Tổng các phần chưa khớp với hóa đơn (còn lại ${conLai}đ)`);
   }
 
-  // The bill and its shares are saved together: never a bill without shares.
+  // Hóa đơn và các phần chia được lưu cùng lúc: không bao giờ có hóa đơn thiếu phần chia.
   return withTransaction(async (client) => {
     const hoaDonId = await createBill(client, {
       nhomId,
@@ -85,7 +85,7 @@ export async function addBill(nhomId: number, nguoiDungId: number, yeuCau: YeuCa
   });
 }
 
-// Any member can delete a bill of the group (no roles in a group).
+// Thành viên nào cũng xóa được hóa đơn của nhóm (trong nhóm không có phân quyền).
 export async function removeBill(nhomId: number, hoaDonId: number, nguoiDungId: number): Promise<void> {
   await kiemTraThanhVien(nhomId, nguoiDungId);
   if (!(await billBelongsToGroup(hoaDonId, nhomId))) {

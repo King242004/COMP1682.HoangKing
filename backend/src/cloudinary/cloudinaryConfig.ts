@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { HttpError } from '../errors/HttpError';
 
-// Every Evenwise photo goes into this folder, so it never mixes with other projects on the same account.
+// Mọi ảnh của Evenwise nằm trong thư mục này, để không lẫn với dự án khác trên cùng tài khoản.
 export const CLOUDINARY_FOLDER = 'evenwise';
 
 type CloudinaryConfig = {
@@ -11,7 +11,7 @@ type CloudinaryConfig = {
   apiSecret: string;
 };
 
-// Read lazily: the backend still starts without Cloudinary keys; only photo features fail.
+// Chỉ đọc khi cần: thiếu key Cloudinary thì backend vẫn chạy, chỉ phần ảnh bị lỗi.
 export function getCloudinaryConfig(): CloudinaryConfig {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
@@ -23,7 +23,7 @@ export function getCloudinaryConfig(): CloudinaryConfig {
   return { cloudName, apiKey, apiSecret };
 }
 
-// A photo link is accepted only if it points to our own Cloudinary account and folder.
+// Link ảnh chỉ được chấp nhận nếu nằm trong đúng tài khoản và thư mục Cloudinary của mình.
 export function isOurPhotoUrl(url: string): boolean {
   const { cloudName } = getCloudinaryConfig();
   return url.startsWith(`https://res.cloudinary.com/${cloudName}/image/upload/`) && url.includes(`/${CLOUDINARY_FOLDER}/`);
